@@ -24,6 +24,7 @@
 
         @livewireStyles
         @bukStyles(true)
+        @laravelViewsStyles('alpinejs')
     </head>
     <body class="font-sans antialiased ">
         <div class="min-h-screen bg-gray-100">
@@ -76,5 +77,6 @@
         </script>
         @livewireScripts
         @bukScripts(true)
+        @laravelViewsScripts('alpinejs')
     </body>
 </html>
