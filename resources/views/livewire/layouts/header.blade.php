@@ -69,10 +69,10 @@
                                 <a href="#" class="block py-2 px-4 text-sm text-gray-200 hover:text-gray-100 hover:bg-gray-400/[0.5] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Earnings</a>
                             </li>
                             <li>
-                                <form method="POST" action="{{ route('logout') }}">
+                                <form method="POST" action="{{ route('admin.logout') }}">
                                     @csrf
                                     <button  class="flex w-full block py-2 px-4 text-sm text-gray-200 hover:text-gray-100 hover:bg-gray-400/[0.5] dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white">Sign out</button>
-{{--                                    <x-dropdown-link :href="route('logout')"--}}
+{{--                                    <x-dropdown-link :href="route('admin-logout')"--}}
 {{--                                                     onclick="event.preventDefault();--}}
 {{--                                                this.closest('form').submit();">--}}
 {{--                                        {{ __('Log Out') }}--}}

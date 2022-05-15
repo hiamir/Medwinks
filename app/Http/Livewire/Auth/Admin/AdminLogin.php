@@ -19,6 +19,7 @@ class AdminLogin extends Component
     public $password;
     public $remember = false;
     protected $ipAddress;
+    protected $session;
     protected $rules = [
         'email' => 'required|email',
         'password' => 'required',
@@ -32,6 +33,7 @@ class AdminLogin extends Component
 
     public function mount(Request $request)
     {
+        $this->session=$request->session();
         $this->ipAddress = $request->ip();
         (Cookie::get('auth-admin-email')) ? $this->remember = true : $this->remember = false;
     }
@@ -87,6 +89,17 @@ class AdminLogin extends Component
     {
         return Str::lower($this->email) . '|' . $this->ipAddress;
     }
+
+    public function admin_logout()
+    {
+        Auth::guard('admin')->logout();
+        $this->session->invalidate();
+        $this->session->regenerateToken();
+
+        return redirect(route('admin.login'));
+    }
+
+
     public function render()
     {
         return view('livewire.auth.admin.admin-login')->layout('layouts.guest');

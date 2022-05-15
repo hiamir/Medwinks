@@ -320,12 +320,22 @@
                             </a>
                         </li>
                         <li class="dark:border-gray-700 border-t">
-                            <a href="#" class="flex items-center text-sm px-4 py-3 transition  text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-100/[0.1] dark:text-gray-300 dark:hover:text-gray-200">
-                                <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
-                                    <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
-                                </svg>
-                                Logout
-                            </a>
+
+                            <form method="POST" action="{{ route('admin.logout') }}">
+                                @csrf
+                                <button  class="flex items-center w-full text-sm px-4 py-3 transition  text-gray-800 hover:bg-gray-100 dark:hover:bg-gray-100/[0.1] dark:text-gray-300 dark:hover:text-gray-200">
+                                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 mr-2" viewBox="0 0 20 20" fill="currentColor">
+                                        <path fill-rule="evenodd" d="M3 3a1 1 0 00-1 1v12a1 1 0 102 0V4a1 1 0 00-1-1zm10.293 9.293a1 1 0 001.414 1.414l3-3a1 1 0 000-1.414l-3-3a1 1 0 10-1.414 1.414L14.586 9H7a1 1 0 100 2h7.586l-1.293 1.293z" clip-rule="evenodd" />
+                                    </svg>
+                                    Logout
+                                </button>
+                                {{--                                    <x-dropdown-link :href="route('admin-logout')"--}}
+                                {{--                                                     onclick="event.preventDefault();--}}
+                                {{--                                                this.closest('form').submit();">--}}
+                                {{--                                        {{ __('Log Out') }}--}}
+                                {{--                                    </x-dropdown-link>--}}
+                            </form>
+
                         </li>
                     </ul>
 

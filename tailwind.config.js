@@ -25,7 +25,9 @@ module.exports = {
             xxl: '1400px',
         },
         dropShadow: {
-            'md2': '0 4px 3px rgba(0, 0, 0, 0.2)'
+            'md2': '0 4px 3px rgba(0, 0, 0, 0.2)',
+            'md2c': '0 0px 2px rgba(0, 0, 0, 0.2)',
+            'md5': '0 0px 5px rgba(0, 0, 0, 0.3)'
         },
 
         // colors: {
