@@ -20,7 +20,7 @@
 
 {{--        logo--}}
         <div class="overflow-y-auto py-4 px-3">
-            <a href="https://flowbite.com"
+            <a href="https://edmanager.com"
                class="grid grid-cols-1 justify-center items-center pl-2.5 mb-5 border-b border-gray-100/[0.30] py-8 w-100 ">
                 <div class="flex justify-center items-center text-center w-100"><img
                         src="{{asset('storage/images/logo-circle.svg')}}" class="h-6 mr-3 xs:h-20 md:h-20" alt="OMJ Logo"/>
