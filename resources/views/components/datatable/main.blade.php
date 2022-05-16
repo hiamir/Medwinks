@@ -19,4 +19,6 @@
     });
     ">
     {{$slot}}
+    {{--    MODAL BACKDROP --}}
+    <x-datatable.modal.backdrop></x-datatable.modal.backdrop>
 </div>

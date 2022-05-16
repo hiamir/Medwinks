@@ -6,7 +6,7 @@ use Livewire\Component;
 
 class Controller extends Component
 {
-    public $header="Roles";
+
     public function render()
     {
         return view('livewire.admin.role.controller');

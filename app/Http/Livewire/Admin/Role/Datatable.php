@@ -83,8 +83,8 @@ class Datatable extends Component
 
     public function render()
     {
-        $roles = Role::paginate(2);
-        return view('livewire.admin.role.datatable', ['roles' => $roles]);
+        $records = Role::paginate(2);
+        return view('livewire.admin.role.datatable', ['records' => $records]);
 
 
     }

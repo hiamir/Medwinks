@@ -27,6 +27,7 @@ Route::group([
         Route::get('administrators', Administrators::class)->name('admins');
         Route::get('users', Users::class)->name('users');
         Route::get('roles', \App\Http\Livewire\Admin\Role\Controller::class)->name('roles');
+        Route::get('permissions', \App\Http\Livewire\Admin\Permissions\Controller::class)->name('permissions');
     });
 });
 
