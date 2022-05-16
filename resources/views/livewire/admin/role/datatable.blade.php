@@ -102,8 +102,8 @@
         </table>
     </x-datatable.table>
 
-    {{--    ADD/UPDATE MODAL--}}
-    <x-datatable.modal.modal modalType="{{$modalType}}">
+    {{--    ADD/UPDATE MODAL SIZE MD, Xl, 4XL, 7XL--}}
+    <x-datatable.modal.modal modalType="{{$modalType}}" size="xl">
         <x-form wire:submit.prevent="submit" class="space-y-6" novalidate autocomplete="off">
             <div class="mt-4">
                 <x-label for="Role name" :value="__('Role name')"/>

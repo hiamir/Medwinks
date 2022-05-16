@@ -23,7 +23,7 @@ class Datatable extends Component
     protected $messages = [
 
         'permission.name.required' => 'Permission name is required.',
-        'permission.name.regex' => ':attribute - only lower case alphabets allowed with no spaces',
+        'permission.name.regex' => ':attribute - only lower case alphabets and "-" allowed with no spaces',
         'permission.name.min' => ':attribute must be at-least 4 letters long.',
         'permission.name.unique' => ':attribute permission already exists!.',
         'permission.guard_name.required' => 'Guard name is required.',
@@ -84,7 +84,7 @@ class Datatable extends Component
 
     public function render()
     {
-        $records = Permission::paginate(2);
+        $records = Permission::paginate(10);
         return view('livewire.admin.permissions.datatable', ['records' => $records]);
 
 
@@ -93,7 +93,7 @@ class Datatable extends Component
     protected function rules()
     {
         return [
-            'permission.name' => 'required|regex:/^[a-z]+$/u|min:4|unique:permissions,name,' . $this->permissionID,
+            'permission.name' => 'required|regex:/^[a-z-]+$/u|min:4|unique:permissions,name,' . $this->permissionID,
             'permission.guard_name' => 'required|min:3',
         ];
     }
