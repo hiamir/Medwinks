@@ -3,21 +3,30 @@
 namespace App\Http\Livewire\Admin\Role;
 
 use App\Traits\Data;
+use App\Traits\Query;
+use Illuminate\Support\Facades\Auth;
 use Livewire\Component;
 use Livewire\WithPagination;
+use Spatie\Permission\Models\Permission;
 use Spatie\Permission\Models\Role;
 
 class Datatable extends Component
 {
     use WithPagination;
     use Data;
+    use Query;
 
     public
+        $header=null,
+        $modalType = null,
+        $modalSize = 'medium',
         $openModal = true,
         $confirmModalStatus = true,
         $toastAlert=[],
-        $modalType = null,
         $record,
+        $rolePermissions,
+        $allRolePermissions,
+        $permissions,
         $roleID,
         $role = ['name' => '', 'guard_name' => ''];
     protected $messages = [
@@ -34,6 +43,8 @@ class Datatable extends Component
     {
         $this->reset();
         $this->modalType = 'add';
+        $this->modalSize='medium';
+        $this->header="Add Role";
         $this->record = new Role();
 
     }
@@ -43,6 +54,8 @@ class Datatable extends Component
     {
         $this->resetErrorBag();
         $this->modalType = 'update';
+        $this->modalSize='medium';
+        $this->header="Update Role";
         $this->roleID = $id;
         $this->record = Role::where('id', $id)->first();
         $this->role['id'] = $this->record->id;
@@ -53,8 +66,37 @@ class Datatable extends Component
     public function deleteButton($id)
     {
         $this->modalType = 'delete';
+        $this->header="Delete Role";
         $this->roleID = $id;
         $this->record = Role::where('id', $id)->first();
+    }
+
+
+
+    public function permissionButton($id)
+    {
+        $this->roleID = $id;
+        $role=Query::role($this->roleID);
+        $this->allRolePermissions=$role->permissions->pluck('id')->toArray();
+        $this->modalType = 'permission';
+        $this->modalSize='xlarge';
+        $this->header=Data::capitalize_first_word($role->name).' permissions';
+        switch($role->guard_name){
+            case 'admin':
+            case 'web':
+                $this->permissions=Permission::where('guard_name',$role->guard_name)->get();
+                break;
+        }
+
+
+
+//        $this->permissionID = $id;
+//        $this->record = Permission::where('id', $id)->first();
+    }
+
+    public function permissionToggle($id){
+        $role=Query::role($this->roleID);
+        $role->permissions()->sync(json_decode($this->rolePermissions));
     }
 
 

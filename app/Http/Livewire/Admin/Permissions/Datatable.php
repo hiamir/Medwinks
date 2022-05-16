@@ -13,11 +13,16 @@ class Datatable extends Component
     use Data;
 
     public
+        $header=null,
+        $modalType = null,
+        $modalSize = 'medium',
         $openModal = true,
         $confirmModalStatus = true,
         $toastAlert=[],
-        $modalType = null,
         $record,
+        $rolePermissions,
+        $allRolePermissions,
+        $permissions,
         $permissionID,
         $permission = ['name' => '', 'guard_name' => ''];
     protected $messages = [
@@ -34,6 +39,8 @@ class Datatable extends Component
     {
         $this->reset();
         $this->modalType = 'add';
+        $this->modalSize='medium';
+        $this->header="Add Permission";
         $this->record = new Permission();
 
     }
@@ -43,6 +50,8 @@ class Datatable extends Component
     {
         $this->resetErrorBag();
         $this->modalType = 'update';
+        $this->modalSize='medium';
+        $this->header="Update Permission";
         $this->permissionID = $id;
         $this->record = Permission::where('id', $id)->first();
         $this->permission['id'] = $this->record->id;
@@ -53,9 +62,12 @@ class Datatable extends Component
     public function deleteButton($id)
     {
         $this->modalType = 'delete';
+        $this->header="Delete Permission";
         $this->permissionID = $id;
         $this->record = Permission::where('id', $id)->first();
     }
+
+
 
 
     public function submit()

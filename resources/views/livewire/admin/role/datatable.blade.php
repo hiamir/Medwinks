@@ -51,48 +51,9 @@
                     </td>
 
                     <td class="px-8 py-4 text-right space-x-2 overflow-hidden">
-                        <x-forms.button name="update"
-                                        class="font-medium text-gray-300 dark:text-gray-600 group-hover:dark:text-gray-500"
-                                        @click="modalOpen=true, openModal=true"
-                                        wire:click="editButton('{{$record->id}}')"
-                                        data-tooltip-target="tooltip-update">
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="w-5 h-5 feather feather-edit-3 hover:text-gray-400 dark:hover:text-gray-700"
-                                 viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor"
-                                 stroke-width="2"
-                                 stroke-linecap="round"
-                                 stroke-linejoin="round">
-                                <path d="M12 20h9"></path>
-                                <path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path>
-                            </svg>
-                        </x-forms.button>
-
-                        <x-forms.tooltip id="tooltip-update" text="Update"></x-forms.tooltip>
-
-                        <x-forms.button name="update"
-                                        class="font-medium text-gray-300 dark:text-gray-600 group-hover:dark:text-gray-500"
-                                        @click="confirmModal=true" wire:click="deleteButton('{{$record->id}}')"
-                                        data-tooltip-target="tooltip-delete">
-
-                            <svg xmlns="http://www.w3.org/2000/svg"
-                                 class="w-5 h-5  feather feather-trash hover:text-gray-400 dark:hover:text-gray-700"
-                                 viewBox="0 0 24 24"
-                                 fill="none"
-                                 stroke="currentColor"
-                                 stroke-width="2"
-                                 stroke-linecap="round"
-                                 stroke-linejoin="round"
-                            >
-                                <polyline points="3 6 5 6 21 6"></polyline>
-                                <path
-                                    d="M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"></path>
-                            </svg>
-
-
-                        </x-forms.button>
-                        <x-forms.tooltip id="tooltip-delete" text="Delete"></x-forms.tooltip>
+                        <x-datatable.permission-icon wire:click="permissionButton('{{$record->id}}')"></x-datatable.permission-icon>
+                        <x-datatable.update-icon wire:click="editButton('{{$record->id}}')"></x-datatable.update-icon>
+                        <x-datatable.delete-icon wire:click="deleteButton('{{$record->id}}')"></x-datatable.delete-icon>
                     </td>
                 </tr>
             @empty
@@ -103,35 +64,68 @@
     </x-datatable.table>
 
     {{--    ADD/UPDATE MODAL SIZE MD, Xl, 4XL, 7XL--}}
-    <x-datatable.modal.modal modalType="{{$modalType}}" size="xl">
-        <x-form wire:submit.prevent="submit" class="space-y-6" novalidate autocomplete="off">
-            <div class="mt-4">
-                <x-label for="Role name" :value="__('Role name')"/>
-                <div class="relative">
-                    <x-input name="name" placeholder="Enter a unique role name"
-                             wire:model="role.name"></x-input>
+    <x-datatable.modal.modal header="{{$header}}" size="{{$modalSize}}">
+        @switch($modalType)
+            @case ('add')
+            @case ('update')
+            <x-form wire:submit.prevent="submit" class="space-y-6" novalidate autocomplete="off">
+                <div class="mt-4">
+                    <x-label for="Role name" :value="__('Role name')"/>
+                    <div class="relative">
+                        <x-input name="name" placeholder="Enter a unique role name" wire:model="role.name"></x-input>
+                    </div>
+                    <x-forms.form-error field="role.name"></x-forms.form-error>
                 </div>
-                <x-forms.form-error field="role.name"></x-forms.form-error>
-            </div>
 
-            <div class="mt-4">
-                <x-label for="guard_name" :value="__('Role name')"/>
-                <div class="relative">
-                    <x-forms.select wire:model="role.guard_name" name="role.guard_name"
-                                    :values="['admin'=>'Admin','web'=>'Web']"
-                                    placeholder="Choose a guard"></x-forms.select>
+                <div class="mt-4">
+                    <x-label for="guard_name" :value="__('Role name')"/>
+                    <div class="relative">
+                        <x-forms.select wire:model="role.guard_name" name="role.guard_name"
+                                        :values="['admin'=>'Admin','web'=>'Web']"
+                                        placeholder="Choose a guard"></x-forms.select>
+                    </div>
+                    <x-forms.form-error field="role.guard_name" class="mb-0"></x-forms.form-error>
                 </div>
-                <x-forms.form-error field="role.guard_name" class="mb-0"></x-forms.form-error>
+
+                <x-forms.submit name="update" type="update">{{$modalType}}</x-forms.submit>
+
+            </x-form>
+            @break
+
+            @case ('permission')
+            <div
+                x-data="{
+                    parentID:$wire.entangle('roleID'),
+                    selected:$wire.entangle('rolePermissions'),
+                    collection:[]
+                }"
+
+                class="flex">
+            @forelse($permissions as $permission)
+            <x-datatable.toggle-switch
+               x-data="{selectedParentChildIDs:$wire.entangle('allRolePermissions')}"
+
+            wire:change="permissionToggle({{$permission->id}})" id="{{$permission->id}}" class="mr-8" size="small">{{$permission->name}}</x-datatable.toggle-switch>
+
+            @empty
+            <div class="flex justify-center items-center">
+                    <x-svg.heroicons.exclamation class="flex w-5 h-5 text-red-500"></x-svg.heroicons.exclamation> <span class="flex ml-2 text-sm font-semibold text-gray-800 dark:text-gray-300"> No permissions available!</span>
             </div>
+            @endforelse
 
-            <x-forms.submit name="update" type="update">{{$modalType}}</x-forms.submit>
+            </div>
+            @break
 
-        </x-form>
+            @endswitch
+
     </x-datatable.modal.modal>
+
+
+
 
     {{--    DELETE MODAL--}}
 
-    <x-datatable.modal.confirmation name="" icon="exclamation"> </x-datatable.modal.confirmation>
+    <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"> </x-datatable.modal.confirmation>
 
 </x-datatable.main>
 
