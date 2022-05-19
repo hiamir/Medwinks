@@ -11,10 +11,12 @@ module.exports = {
         "./layouts/**/*.html",
         "./content/**/*.md",
         "./content/**/*.html",
-        "./src/**/*.js"
+        "./src/**/*.js",
     ],
     darkMode: 'class',
-
+    variants: {
+        scrollbar: ['dark']
+    },
     theme: {
         screens: {
             xs: '320px',
@@ -56,9 +58,5 @@ module.exports = {
         // }
     },
 
-    plugins: [
-        require('flowbite/plugin')
-    ],
-
-    plugins: [require('@tailwindcss/forms')],
+    plugins: [ require('tailwind-scrollbar'),  require('flowbite/plugin'),require('@tailwindcss/forms')]
 };

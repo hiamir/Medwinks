@@ -51,7 +51,7 @@
             </x-navigation.parent.li>
 
             <x-navigation.parent.li
-                :list="['admin.admins','admin.users','admin.roles']"
+                :list="['admin.admins','admin.users','admin.roles','admin.permissions']"
                 name="security"
                 href="admin.roles"
                 dropdown="true"

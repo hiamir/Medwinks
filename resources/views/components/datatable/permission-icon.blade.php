@@ -4,6 +4,6 @@
                 data-tooltip-target="tooltip-permission"
     {{$attributes}}
 >
-    <x-svg.feather-icons.key class="w-5 h-5"></x-svg.feather-icons.key>
+    <x-svg.heroicons.shield-check class="w-5 h-5"></x-svg.heroicons.shield-check>
 </x-forms.button>
 <x-forms.tooltip id="tooltip-permission" text="Permissions"></x-forms.tooltip>

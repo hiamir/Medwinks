@@ -1,0 +1,388 @@
+/*!* Base *!*/
+
+/*body,*/
+/*body *:not(html):not(style):not(br):not(tr):not(code) {*/
+/*    box-sizing: border-box;*/
+/*    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif,*/
+/*        'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol';*/
+/*    position: relative;*/
+/*}*/
+
+/*body {*/
+/*    -webkit-text-size-adjust: none;*/
+/*    background-color: #ffffff;*/
+/*    color: #718096;*/
+/*    height: 100%;*/
+/*    line-height: 1.4;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    width: 100% !important;*/
+/*}*/
+
+/*p,*/
+/*ul,*/
+/*ol,*/
+/*blockquote {*/
+/*    line-height: 1.2;*/
+/*    text-align: left;*/
+/*    color: rgb(255,255,255);*/
+/*}*/
+
+/*a {*/
+/*    color: rgb(219, 234, 254);*/
+/*}*/
+
+/*a img {*/
+/*    border: none;*/
+/*}*/
+
+/*!* Typography *!*/
+
+/*h1 {*/
+/*    color: rgb(255,255,255);*/
+/*    font-size: 18px;*/
+/*    font-weight: bold;*/
+/*    margin-top: 0;*/
+/*    text-align: left;*/
+/*}*/
+
+/*h2 {*/
+/*    font-size: 16px;*/
+/*    font-weight: bold;*/
+/*    margin-top: 0;*/
+/*    text-align: left;*/
+/*}*/
+
+/*h3 {*/
+/*    font-size: 14px;*/
+/*    font-weight: bold;*/
+/*    margin-top: 0;*/
+/*    text-align: left;*/
+/*}*/
+
+/*p {*/
+/*    font-size: 13px;*/
+/*    line-height: 1.3em;*/
+/*    font-weight: normal;*/
+/*    margin-top: 0;*/
+/*    text-align: left;*/
+/*}*/
+
+/*p.sub {*/
+/*    font-size: 12px;*/
+/*}*/
+
+/*img {*/
+/*    max-width: 100%;*/
+/*}*/
+
+/*!* Layout *!*/
+
+/*.wrapper {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 100%;*/
+/*    background-color: #edf2f7;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.content {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 100%;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    width: 100%;*/
+/*}*/
+
+/*!* Header *!*/
+
+/*.header {*/
+/*    padding: 25px 0;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.header a {*/
+/*    color: #3d4852;*/
+/*    font-size: 19px;*/
+/*    font-weight: bold;*/
+/*    text-decoration: none;*/
+/*}*/
+
+/*!* Logo *!*/
+
+/*.logo {*/
+/*    height: 75px;*/
+/*    max-height: 75px;*/
+/*    width: 75px;*/
+/*}*/
+
+/*!* Body *!*/
+
+/*.body {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 100%;*/
+/*    background-color: #edf2f7;*/
+/*    border-bottom: 1px solid #edf2f7;*/
+/*    border-top: 1px solid #edf2f7;*/
+/*    margin: 0;*/
+/*    padding: 0;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.inner-body {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 570px;*/
+/*    background-color: rgb(30 58 138);*/
+/*    border-color: rgb(96 165 250);*/
+/*    border-radius: 10px;*/
+/*    border-width: 1px;*/
+/*    !*box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015);*!*/
+/*    margin: 0 auto;*/
+/*    padding: 0;*/
+/*    width: 570px;*/
+
+
+/*    !*box-shadow: rgba(0, 0, 0, 0.5) 0px 2px 2px;*!*/
+/*}*/
+
+/*!* Subcopy *!*/
+
+/*.subcopy {*/
+/*    border-top: 1px solid #e8e5ef;*/
+/*    margin-top: 25px;*/
+/*    padding-top: 25px;*/
+/*    border-radius: 0px;*/
+/*}*/
+
+/*.subcopy p {*/
+/*    font-size: 12px;*/
+/*}*/
+
+/*!* Footer *!*/
+
+/*.footer {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 570px;*/
+/*    margin: 0 auto;*/
+/*    padding: 0;*/
+/*    text-align: center;*/
+/*    width: 570px;*/
+/*}*/
+
+/*.footer p {*/
+/*    color: rgb(200,200,200);*/
+/*    font-size: 10px;*/
+/*    text-align: center;*/
+/*}*/
+
+/*.footer a {*/
+/*    color: #b0adc5;*/
+/*    text-decoration: underline;*/
+/*}*/
+
+/*!* Tables *!*/
+
+/*.table table {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 100%;*/
+/*    margin: 30px auto;*/
+/*    width: 100%;*/
+/*}*/
+
+/*.table th {*/
+/*    border-bottom: 1px solid #edeff2;*/
+/*    margin: 0;*/
+/*    padding-bottom: 8px;*/
+/*}*/
+
+/*.table td {*/
+/*    color: #74787e;*/
+/*    font-size: 15px;*/
+/*    line-height: 18px;*/
+/*    margin: 0;*/
+/*    padding: 10px 0;*/
+/*}*/
+
+/*.content-cell {*/
+/*    max-width: 100vw;*/
+/*    padding: 32px;*/
+/*    color:rgb(150,150,150) !important;*/
+/*}*/
+
+/*.content-cell-footer {*/
+/*    max-width: 100vw;*/
+/*    padding: 32px;*/
+/*    padding-top:16px;*/
+/*    color:rgb(100,100,100) !important;*/
+/*}*/
+
+/*!* Buttons *!*/
+
+/*.action {*/
+/*    -premailer-cellpadding: 0;*/
+/*    -premailer-cellspacing: 0;*/
+/*    -premailer-width: 100%;*/
+/*    margin: 30px auto;*/
+/*    padding: 0;*/
+/*    text-align: center;*/
+/*    width: 100%;*/
+
+/*}*/
+
+
+/*-----------------------------------------------*/
+
+
+/* Reset styles */
+body {
+    margin: 0;
+    padding: 0;
+    min-width: 100%;
+    width: 100% !important;
+    height: 100% !important;
+}
+
+body, table, td, div, p, a {
+    -webkit-font-smoothing: antialiased;
+    text-size-adjust: 100%;
+    -ms-text-size-adjust: 100%;
+    -webkit-text-size-adjust: 100%;
+    line-height: 100%;
+}
+
+table, td {
+    mso-table-lspace: 0pt;
+    mso-table-rspace: 0pt;
+    border-collapse: collapse !important;
+    border-spacing: 0;
+}
+
+img {
+    border: 0;
+    line-height: 100%;
+    outline: none;
+    text-decoration: none;
+    -ms-interpolation-mode: bicubic;
+}
+
+#outlook a {
+    padding: 0;
+}
+
+.ReadMsgBody {
+    width: 100%;
+}
+
+.ExternalClass {
+    width: 100%;
+}
+
+.ExternalClass, .ExternalClass p, .ExternalClass span, .ExternalClass font, .ExternalClass td, .ExternalClass div {
+    line-height: 100%;
+}
+
+/* Rounded corners for advanced mail clients only */
+@media all and (min-width: 560px) {
+    .container {
+        border-radius: 8px;
+        -webkit-border-radius: 8px;
+        -moz-border-radius: 8px;
+        -khtml-border-radius: 8px;
+    }
+}
+
+/* Set color for auto links (addresses, dates, etc.) */
+a, a:hover {
+    color: #127DB3;
+}
+
+.footer a, .footer a:hover {
+    color: #999999;
+}
+
+/*.button {*/
+/*    -webkit-text-size-adjust: none;*/
+/*    border-radius: 5px;*/
+/*    color: #fff;*/
+/*    display: inline-block;*/
+/*    overflow: hidden;*/
+/*    text-decoration: none;*/
+/*    background:rgb(0,0,0);*/
+/*}*/
+
+/*.button-blue,*/
+/*.button-primary {*/
+/*    background-color: rgb(0,0,0);*/
+/*    border-bottom: 8px solid rgb(0,0,0);*/
+/*    border-left: 18px solid rgb(0,0,0);*/
+/*    border-right: 18px solid rgb(0,0,0);*/
+/*    border-top: 8px solid rgb(0,0,0);*/
+/*}*/
+
+/*.button-green,*/
+/*.button-success {*/
+/*    background-color: #48bb78;*/
+/*    border-bottom: 8px solid #48bb78;*/
+/*    border-left: 18px solid #48bb78;*/
+/*    border-right: 18px solid #48bb78;*/
+/*    border-top: 8px solid #48bb78;*/
+/*}*/
+
+/*.button-red,*/
+/*.button-error {*/
+/*    background-color: #e53e3e;*/
+/*    border-bottom: 8px solid #e53e3e;*/
+/*    border-left: 18px solid #e53e3e;*/
+/*    border-right: 18px solid #e53e3e;*/
+/*    border-top: 8px solid #e53e3e;*/
+/*}*/
+
+/*!* Panels *!*/
+
+/*.panel {*/
+/*    border-left: #2d3748 solid 4px;*/
+/*    margin: 21px 0;*/
+/*}*/
+
+/*.panel-content {*/
+/*    background-color: #edf2f7;*/
+/*    color: #718096;*/
+/*    padding: 16px;*/
+/*}*/
+
+/*.panel-content p {*/
+/*    color: #718096;*/
+/*}*/
+
+/*.panel-item {*/
+/*    padding: 0;*/
+/*}*/
+
+/*.panel-item p:last-of-type {*/
+/*    margin-bottom: 0;*/
+/*    padding-bottom: 0;*/
+/*}*/
+
+/*!* Utilities *!*/
+
+/*.break-all {*/
+/*    word-break: break-all;*/
+/*}*/
+
+/*.app-logo{*/
+/*    display:block;*/
+/*    width:100%;*/
+/*    text-align: center;*/
+/*}*/
+/*.app-logo img{*/
+
+/*    width:70px;*/
+/*    height:70px;*/
+/*}*/

@@ -90,7 +90,8 @@
     </x-datatable.modal.modal>
 
     {{--    DELETE MODAL--}}
-    <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"></x-datatable.modal.confirmation>
-
+    @isset($record)
+        <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"> </x-datatable.modal.confirmation>
+    @endisset
 </x-datatable.main>
 

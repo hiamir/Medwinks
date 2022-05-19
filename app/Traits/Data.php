@@ -3,6 +3,7 @@
 namespace App\Traits;
 
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Str;
 
 trait Data
 {
@@ -27,6 +28,14 @@ trait Data
     {
         return ucfirst($data);
     }
+
+    //  GENERATE RANDOM PASSWORD
+    public static function generate_password(){
+        return Str::random(8);
+//        $random = str_shuffle('abcdefghjklmnopqrstuvwxyzABCDEFGHJKLMNOPQRSTUVWXYZ234567890!$%^&!$%^&');
+//        return substr($random, 0, 10);
+    }
+
 
     // ROUTE NAMES WITH SEARCH
 
