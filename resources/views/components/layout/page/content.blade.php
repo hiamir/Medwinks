@@ -1,6 +1,7 @@
 @props(['header'=>''])
-<div>
-    <main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-auto">
+
+    <main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-auto scrollbar-thin scrollbar-thumb-gray-400 scrollbar-track-gray-300 h-32 overflow-y-scroll
+    dark:scrollbar-thumb-gray-500 dark:scrollbar-track-gray-700">
         <!-- Main content header -->
         <div
             class="flex flex-col items-start justify-between pb-6 space-y-4 border-b dark:border-gray-700 lg:items-center lg:space-y-0 lg:flex-row">
@@ -131,4 +132,4 @@
         {{--        </div>--}}
         {{--    </div>--}}
     </main>
-</div>
+

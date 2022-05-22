@@ -1,29 +1,31 @@
 @component('mail::layout')
-{{-- Header --}}
-@slot('header')
-@component('mail::header', ['url' => config('app.url')])
-    <div class="app-logo"><img src="{{asset('storage/images/logo-circle.svg')}}" alt=""></div>
-    <div class="app-name">{{ config('app.name') }}</div>
+    {{-- Header --}}
+    @slot('header')
 
-@endcomponent
-@endslot
+        {{-- logo --}}
+        @component('mail::logo', ['url' => asset('storage/images/logo-circle.svg'),'href'=>'www.edmanager.com','preheader'=>'Reset Password']) @endcomponent
 
-{{-- Body --}}
-{{ $slot }}
+        {{-- Image --}}
+        @component('mail::image', ['url' => $imageUrl,'href'=>'http://127.0.0.1:8000/login'])  @endcomponent
 
-{{-- Subcopy --}}
-@isset($subcopy)
-@slot('subcopy')
-@component('mail::subcopy')
-{{ $subcopy }}
-@endcomponent
-@endslot
-@endisset
+        {{-- Super Header --}}
+        @component('mail::superheader') {{$superHeader}} @endcomponent
 
-{{-- Footer --}}
-@slot('footer')
-@component('mail::footer')
-© {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
-@endcomponent
-@endslot
+        {{-- Header --}}
+        @component('mail::header') {{$header}} @endcomponent
+
+        @component('mail::underline') @endcomponent
+    @endslot
+
+    {{-- Body --}}
+    {{$slot}}
+{{--    {{ Illuminate\Mail\Markdown::parse($slot) }}--}}
+
+
+    {{-- Footer --}}
+    @slot('footer')
+        @component('mail::footer')
+            © {{ date('Y') }} {{ config('app.name') }}. @lang('All rights reserved.')
+        @endcomponent
+    @endslot
 @endcomponent

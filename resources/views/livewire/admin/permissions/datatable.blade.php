@@ -63,7 +63,7 @@
     </x-datatable.table>
 
     {{--    ADD/UPDATE MODAL--}}
-    <x-datatable.modal.modal header="{{$header}}" size="{{$modalSize}}">
+    <x-datatable.modal.modal header="{{$header}}" modalSize="{{$modalSize}}">
         <x-form wire:submit.prevent="submit" class="space-y-6" novalidate autocomplete="off">
             <div class="mt-4">
                 <x-label for="Permission name" :value="__('Permission name')"/>
@@ -90,7 +90,8 @@
     </x-datatable.modal.modal>
 
     {{--    DELETE MODAL--}}
-    <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"></x-datatable.modal.confirmation>
-
+    @isset($record)
+        <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"> </x-datatable.modal.confirmation>
+    @endisset
 </x-datatable.main>
 

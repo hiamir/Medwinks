@@ -64,7 +64,7 @@
     </x-datatable.table>
 
     {{--    ADD/UPDATE MODAL SIZE MD, Xl, 4XL, 7XL--}}
-    <x-datatable.modal.modal header="{{$header}}" size="{{$modalSize}}">
+    <x-datatable.modal.modal header="{{$header}}" modalSize="{{$modalSize}}">
         @switch($modalType)
             @case ('add')
             @case ('update')
@@ -124,8 +124,8 @@
 
 
     {{--    DELETE MODAL--}}
-
-    <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"> </x-datatable.modal.confirmation>
-
+    @isset($record)
+        <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"> </x-datatable.modal.confirmation>
+    @endisset
 </x-datatable.main>
 

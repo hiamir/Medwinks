@@ -1,14 +1,3 @@
-<!-- Setting panel button -->
-{{--<div>--}}
-{{--    <button--}}
-{{--        @click="isSettingsPanelOpen = true"--}}
-{{--        class="fixed right-0 px-4 py-2 text-sm font-medium text-white uppercase transform rotate-90 translate-x-8 bg-gray-600 top-1/2 rounded-b-md"--}}
-{{--    >--}}
-{{--        Settings--}}
-{{--    </button>--}}
-{{--</div>--}}
-
-<!-- Settings panel -->
 <div
     x-show="isSettingsPanelOpen"
     @click.away="isSettingsPanelOpen = false"

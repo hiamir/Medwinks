@@ -29,7 +29,7 @@
 {{--</footer>--}}
 
 
-<footer class="flex items-center justify-between flex-shrink-0 p-4 border-t dark:border-gray-700 max-h-[60px] h-[60px]">
+<footer class="flex flex-row w-full bottom-0 dark:bg-gray-800 items-center justify-between flex-shrink-0 p-4 border-t dark:border-gray-700 max-h-[60px] h-[60px]">
     <div class="sm:flex sm:items-center sm:justify-between justify-center ">
         <span class="block text-sm text-gray-500 sm:text-center dark:text-gray-400">© 2022 <a href="https://flowbite.com" class="hover:underline">ED-Manager™</a>. All Rights Reserved.</span>
 

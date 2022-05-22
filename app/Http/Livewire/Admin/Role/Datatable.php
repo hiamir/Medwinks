@@ -29,8 +29,9 @@ class Datatable extends Component
         $permissions,
         $roleID,
         $role = ['name' => '', 'guard_name' => ''];
-    protected $messages = [
 
+
+    protected $messages = [
         'role.name.required' => 'Role name is required.',
         'role.name.regex' => ':attribute - only lower case alphabets allowed with no spaces',
         'role.name.min' => ':attribute must be at-least 4 letters long.',
@@ -102,6 +103,7 @@ class Datatable extends Component
 
     public function submit()
     {
+
         switch ($this->modalType) {
             case 'add':
             case 'update':

@@ -1,5 +1,5 @@
 @props(['header'])
-<div>
+<div class="content">
     <main class="flex-1 max-h-full p-5 overflow-hidden overflow-y-auto">
         <!-- Main content header -->
         <div
