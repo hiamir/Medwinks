@@ -13,6 +13,7 @@ module.exports = {
         "./content/**/*.html",
         "./src/**/*.js",
     ],
+    tailwindConfig: './styles/tailwind.config.js',
     darkMode: 'class',
     variants: {
         scrollbar: ['dark']
@@ -58,5 +59,5 @@ module.exports = {
         // }
     },
 
-    plugins: [ require('tailwind-scrollbar'),  require('flowbite/plugin'),require('@tailwindcss/forms')]
+    plugins: [require('tailwind-scrollbar'), require('flowbite/plugin'), require('@tailwindcss/forms'),require('prettier-plugin-tailwindcss')]
 };

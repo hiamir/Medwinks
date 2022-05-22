@@ -12,7 +12,6 @@ use Illuminate\Support\Facades\Route;
 
 Route::group([
     'namespace'=>'\App\Http\Livewire\Auth\Admin',
-
     'as'=>'admin.'
 ], function () {
     Route::group([
@@ -25,11 +24,12 @@ Route::group([
     Route::group([
         'middleware' => ['auth:admin'],
     ], function () {
-//        Route::get('admin_logout', AdminLogin::class)->name('logout');
         Route::post('admin-logout', [AuthenticatedSessionController::class, 'admin_destroy'])
             ->name('logout');
     });
 });
+
+
 
 
 
@@ -39,14 +39,9 @@ Route::group([
 //});
 
 Route::middleware(['guest:web'])->group(function () {
-//    Route::get('register', [RegisteredUserController::class, 'create'])
-//        ->name('register');
-
-//    Route::post('register', [RegisteredUserController::class, 'store']);
     Route::get('register', \App\Http\Livewire\Auth\Register::class) ->name('register');
-
-
     Route::get('login', \App\Http\Livewire\Auth\Login::class) ->name('login');
+
 
 //    Route::get('login', [AuthenticatedSessionController::class, 'create'])
 //                ->name('login');
@@ -98,6 +93,6 @@ Route::middleware('auth')->group(function () {
 //
 //    Route::post('confirm-password', [ConfirmablePasswordController::class, 'store']);
 //
-//    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
-//                ->name('logout');
+    Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
+                ->name('logout');
 });

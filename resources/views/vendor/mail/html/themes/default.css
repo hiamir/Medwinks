@@ -639,3 +639,11 @@ img {
 
 .btn-clear-danger { color: #db4f4f; }
 .btn-clear-danger:before { background-color: #db4f4f; opacity: 0.1; }
+
+
+.highlight{
+    letter-spacing: 0.3em;
+    font-size: x-large;
+    font-weight: bold;
+    color:darkred;
+}

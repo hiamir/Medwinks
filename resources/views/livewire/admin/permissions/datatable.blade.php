@@ -1,10 +1,18 @@
-<x-datatable.main>
+@inject('Data', 'App\Http\Livewire\Admin\Permissions\Datatable')
+<x-datatable.main
+    x-data="{
+        permissions: null,
+        permissionRecord:$wire.entangle('permission'),
+    }"
+    x-init="
+        errorCount= {{ count($errors) }}
+        permissions={{$records->getCollection()}};
+    "
+>
 
-    {{--    TOAST  --}}
-    <x-datatable.toast></x-datatable.toast>
 
     {{--    ADD BUTTON  --}}
-    <x-datatable.insert name="Add"></x-datatable.insert>
+    <x-datatable.insert name="Add" @click.prevent="MyModal('add','permission',{'formData':{} });"></x-datatable.insert>
 
     {{--    DATATABLE FILTER --}}
     <x-datatable.filter></x-datatable.filter>
@@ -27,71 +35,67 @@
                     Updated on
                 </th>
                 <th scope="col" class="px-6 py-3">
-                    <span class="sr-only" type="button">Edit</span>
+                    Action
                 </th>
             </tr>
             </thead>
-            <tbody>
-
-
-            @forelse ($records as $record)
-                <tr class=" @if($loop->last)bg-white dark:bg-gray-800 @else bg-white border-b dark:bg-gray-800 dark:border-gray-700 @endif">
-                    <th scope="row"
-                        class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap">
-                        {{$record->name}}
-                    </th>
-                    <td class="px-6 py-4 text-center">
-                        {{$record->guard_name}}
-                    </td>
-                    <td class="px-6 py-4 text-center">
-                        {{$record->created_at->diffForHumans()}}
-                    </td>
-                    <td class="px-6 py-4 text-center">
-                        {{$record->updated_at->diffForHumans()}}
-                    </td>
-
+            <template x-for="permission in permissions">
+                </tbody>
+                <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700">
+                    <td x-text="permission.name" scope="row"
+                        class="px-6 py-4 font-medium text-gray-900 dark:text-white whitespace-nowrap"></td>
+                    <td x-text="permission.guard_name" scope="row" class="px-6 py-4 text-center"></td>
+                    <td class="px-6 py-4 text-center"><span x-text="permission.created_at"></span></td>
+                    <td class="px-6 py-4 text-center"><span x-text="permission.updated_at"></span></td>
                     <td class="px-8 py-4 text-right space-x-2 overflow-hidden">
-                        <x-datatable.update-icon wire:click="editButton('{{$record->id}}')"></x-datatable.update-icon>
-                        <x-datatable.delete-icon wire:click="deleteButton('{{$record->id}}')"></x-datatable.delete-icon>
+                        <div class="flex flex-row justify-end">
+                            <x-datatable.update-icon class="mx-1"
+                                                     @click.prevent="MyModal('update','permission',{'formData':permission});"></x-datatable.update-icon>
+                            <x-datatable.delete-icon class="ml-1"
+                                                     @click.prevent="MyModal('delete','permission',{'formData':permission});"></x-datatable.delete-icon>
+                        </div>
                     </td>
                 </tr>
-            @empty
-                <x-datatable.norecords name="Permissions" colspan="5"></x-datatable.norecords>
-            @endforelse
-            </tbody>
+                </tbody>
+            </template>
         </table>
     </x-datatable.table>
 
-    {{--    ADD/UPDATE MODAL--}}
-    <x-datatable.modal.modal header="{{$header}}" modalSize="{{$modalSize}}">
+    <x-datatable.modal.add-update>
         <x-form wire:submit.prevent="submit" class="space-y-6" novalidate autocomplete="off">
             <div class="mt-4">
-                <x-label for="Permission name" :value="__('Permission name')"/>
+                <x-label for="Permission name" :value="__('Permission name')"></x-label>
                 <div class="relative">
-                    <x-input name="name" placeholder="Enter a unique permission name"
-                             wire:model="permission.name"></x-input>
+                    <x-input wire:model.defer="permission.name"
+                             x-bind:value="(errorCount === 0) ? dataRecord.name : $wire.permission.name" name="name"
+                             placeholder="Enter a unique permission name"
+                    ></x-input>
                 </div>
                 <x-forms.form-error field="permission.name"></x-forms.form-error>
             </div>
+            @if(in_array('admin',$this->userRoles()['roles']) &&  in_array('super-admin',$this->userRoles()['roles']))
+                <div class="mt-4">
+                    <x-label for="Guard name" :value="__('Guard name')"></x-label>
+                    <div class="relative">
+                        <x-forms.select
+                            x-bind:value="(errorCount === 0) ? dataRecord.guard_name : $wire.permission.guard_name"
+                            wire:model.defer="permission.guard_name" name="Guard name"
+                            :values="['admin'=>'Administrator','web'=>'User']"
+                            placeholder="Choose a Guard">
 
-            <div class="mt-4">
-                <x-label for="guard_name" :value="__('Permission name')"/>
-                <div class="relative">
-                    <x-forms.select wire:model="permission.guard_name" name="permission.guard_name"
-                                    :values="['admin'=>'Admin','web'=>'Web']"
-                                    placeholder="Choose a guard"></x-forms.select>
+                        </x-forms.select>
+                    </div>
+                    <x-forms.form-error field="permission.guard_name" class="mb-0"></x-forms.form-error>
                 </div>
-                <x-forms.form-error field="permission.guard_name" class="mb-0"></x-forms.form-error>
-            </div>
+            @endif
 
-            <x-forms.submit name="update" type="update">{{$modalType}}</x-forms.submit>
+            <x-forms.submit><span x-text="AddUpdateModal.submit"></span></x-forms.submit>
 
         </x-form>
-    </x-datatable.modal.modal>
+    </x-datatable.modal.add-update>
 
-    {{--    DELETE MODAL--}}
-    @isset($record)
-        <x-datatable.modal.confirmation name="{{$record->name}}" icon="exclamation"> </x-datatable.modal.confirmation>
-    @endisset
+
+    {{--                DELETE MODAL STARTS HERE      --}}
+    <x-datatable.modal.delete></x-datatable.modal.delete>
 </x-datatable.main>
 

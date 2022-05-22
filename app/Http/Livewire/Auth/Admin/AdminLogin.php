@@ -3,18 +3,21 @@
 namespace App\Http\Livewire\Auth\Admin;
 
 use App\Providers\RouteServiceProvider;
+use App\Traits\Data;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
 use Illuminate\Support\Facades\RateLimiter;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Str;
 use Illuminate\Validation\ValidationException;
 use Livewire\Component;
 
 class AdminLogin extends Component
 {
+    use Data;
     public $email;
     public $password;
     public $remember = false;
@@ -59,9 +62,8 @@ class AdminLogin extends Component
             Cookie::queue(Cookie::forget('auth-admin-email'));
             Cookie::queue(Cookie::forget('auth-admin-password'));
         }
-//        if (Auth::user()->hasRole('admin')) {
-//            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-//        }  else {
+
+
         return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
 //        }
 

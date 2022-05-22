@@ -69,7 +69,7 @@ return [
     |
     */
 
-    'timezone' => 'UTC',
+    'timezone' => 'Asia/Muscat',
 
     /*
     |--------------------------------------------------------------------------
@@ -196,7 +196,6 @@ return [
         App\Providers\RouteServiceProvider::class,
 
         Spatie\Permission\PermissionServiceProvider::class,
-
     ],
 
     /*

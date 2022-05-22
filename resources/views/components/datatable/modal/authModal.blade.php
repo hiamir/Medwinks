@@ -28,8 +28,7 @@
 
                                     <h3 class="flex inline-flex justify-center items-center mb-0 text-xl font-medium text-gray-800 dark:text-gray-200 cal"><span
                                             class="capitalize">
-                                    <x-svg.heroicons.user-circle
-                                        class="flex inline-flex h-6 w-6 "></x-svg.heroicons.user-circle> {{$header}}
+                                    <x-svg.heroicons.user-circle class="flex inline-flex h-6 w-6 "></x-svg.heroicons.user-circle> {{$header}}
                                     </h3>
                                     <div class="flex ">
                                         <button @click="openAuthModal=false" type="button"

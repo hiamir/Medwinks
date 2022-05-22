@@ -1,6 +1,6 @@
 <x-forms.button name="permission"
                 class="font-medium text-gray-300 dark:text-gray-600 group-hover:dark:text-gray-500"
-                @click="modalOpen=true"
+                @click="openModal=true"
                 data-tooltip-target="tooltip-permission"
     {{$attributes}}
 >

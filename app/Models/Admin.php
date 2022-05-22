@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -46,8 +47,19 @@ class Admin extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-//    public function guard()
-//    {
-//        return Auth::guard('admin');
-//    }
+    public function profilePhoto(){
+        return $this->belongsTo(DefaultProfilePhoto::class,'default_profile_photo_id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $date = Carbon::parse($value); // now date is a carbon instance
+        return $date->diffForHumans(Carbon::now());
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $date = Carbon::parse($value); // now date is a carbon instance
+        return $date->diffForHumans(Carbon::now());
+    }
 }

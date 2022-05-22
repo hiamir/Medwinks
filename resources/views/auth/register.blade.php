@@ -59,6 +59,10 @@
             </div>
 
 
+
+
+
+
             <x-forms.auth-submit-button name="Register"></x-forms.auth-submit-button>
 
             <div class="text-sm font-medium text-gray-500 dark:text-gray-300">

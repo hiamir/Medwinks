@@ -58,7 +58,7 @@
     @break
 
     @case('none')
-    <button type="button"
+    <button
     {{ $attributes }}>
     {{$slot}}
     </button>

@@ -14,8 +14,9 @@ use Livewire\Component;
 
 class Controller extends Authenticate
 {
-
-
+    public function mount(Request $request){
+        $this->modalDetails['model']='profile';
+    }
     public function render()
     {
         return view('livewire.admin.profile.controller');

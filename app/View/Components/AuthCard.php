@@ -6,15 +6,16 @@ use Illuminate\View\Component;
 
 class AuthCard extends Component
 {
-    public $header,$guard;
+    public $header,$guard,$type;
     /**
      * Create a new component instance.
      *
      * @return void
      */
-    public function __construct($header,$guard)
+    public function __construct($header,$guard,$type=null)
     {
         $this->header=$header;
+        $this->type=$type;
         $this->guard=$guard;
     }
 

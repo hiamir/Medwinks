@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Auth;
 
 use App\Providers\RouteServiceProvider;
+use App\Traits\Data;
 use Illuminate\Auth\Events\Lockout;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Cookie;
@@ -15,6 +16,7 @@ use Illuminate\Http\Request;
 
 class Login extends Component
 {
+    use Data;
     public $email;
     public $password;
     public $remember = false;
@@ -56,12 +58,9 @@ class Login extends Component
             Cookie::queue(Cookie::forget('auth-email'));
             Cookie::queue(Cookie::forget('auth-password'));
         }
-//        if (Auth::user()->hasRole('admin')) {
-//            return redirect()->intended(RouteServiceProvider::ADMIN_HOME);
-//        }  else {
+//        $this->authRoles();
         redirect(Session::get('url.intended'));
-        return (Session::has('url.intended')) ? redirect(Session::get('url.intended')) :  redirect()->intended(RouteServiceProvider::HOME);
-//        }
+        return (Session::has('url.intended')) ? redirect(Session::get('url.intended')) : redirect()->intended(RouteServiceProvider::HOME);
 
     }
 

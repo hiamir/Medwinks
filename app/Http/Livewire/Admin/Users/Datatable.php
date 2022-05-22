@@ -2,39 +2,47 @@
 
 namespace App\Http\Livewire\Admin\Users;
 
+use App\Http\Livewire\Authenticate;
 use App\Mail\ResetPassword;
 use App\Mail\Welcome;
+use App\Models\Gender;
+use App\Models\PermissionExtends;
 use App\Models\User;
 use App\Traits\Data;
 use App\Traits\Query;
+use App\Traits\Submit;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Illuminate\Validation\Rules;
+use Spatie\Permission\Models\Permission;
+use Spatie\Permission\Models\Role;
 
-class Datatable extends Component
+class Datatable extends Authenticate
 {
     use WithPagination;
+    use Submit;
     use Data;
-    use Query;
 
-    public
-        $header = null,
-        $modalType = null,
-        $modalSize = 'medium',
-        $openModal = false,
-        $confirmModalStatus = true,
-        $toastAlert = [],
-        $record,
-        $rolePermissions,
-        $allRolePermissions,
-        $permissions,
-        $userID,
-        $user = ['name' => '', 'email' => ''];
 
+    protected $listeners = ['myController', 'refreshComponent' => '$refresh'];
+
+    public array
+        $myModal = [],
+        $user = [],
+        $roles,
+        $collection = [];
+    public $userID;
+
+    public function mount(Request $request)
+    {
+        $this->resetForm('user');
+    }
 
     protected $messages = [
         'user.name.required' => 'The Name cannot be empty.',
@@ -48,93 +56,84 @@ class Datatable extends Component
         'user.email.unique' => ':attribute Email Address already exists!.',
         'user.password.required' => 'The Password cannot be empty.',
         'user.password.confirmed' => 'The two Password do not match.',
+        'user.gender.required' => 'Select a gender',
     ];
 
-    public function addButton()
-    {
-        $this->reset();
-        $this->modalType = 'add';
-        $this->modalSize = 'medium';
-        $this->header = "Add User";
-        $this->record = new User();
-
-    }
-
-
-    public function editButton($id)
-    {
-        $this->resetErrorBag();
-        $this->modalType = 'update';
-        $this->modalSize = 'medium';
-        $this->header = "Update User";
-        $this->userID = $id;
-        $this->record = User::where('id', $id)->first();
-        $this->user['id'] = $this->record->id;
-        $this->user['name'] = $this->record->name;
-        $this->user['email'] = $this->record->email;
-    }
-
-    public function deleteButton($id)
-    {
-        $this->modalType = 'delete';
-        $this->header = "Delete User";
-        $this->userID = $id;
-        $this->record = User::where('id', $id)->first();
-    }
-
-    public function passwordButton($id)
-    {
-        $this->modalType = 'reset_password';
-        $this->header = "Reset password";
-        $this->userID = $id;
-        $this->record = User::where('id', $id)->first();
-    }
-
-
-    public function submit()
+    public function myController($value)
     {
 
-        switch ($this->modalType) {
-            case 'add':
-            case 'update':
-                $this->validate();
-                $this->record->name = Data::capitalize_each_word($this->user['name']);
-                $this->record->email = Data::all_lower_case($this->user['email']);
-                if($this->modalType =='add'){
-                    $password=Data::generate_password();
-                    $this->record->password = Hash::make($password);
-                    $this->record->save();
-                    Mail::to($this->record->email)->send(new Welcome($this->record->name, $this->record->email, $password));
-                }else{
-                    $this->record->save();
+        $this->myModal = $value;
+        switch ($value['model']) {
+            case 'user':
+                if ($value['modalType'] === 'update' || $value['modalType'] === 'delete' || $value['modalType'] === 'password-reset') {
+                    $this->userID = $value['record']['formData']['id'];
+                    $this->record = User::where('id', $this->userID)->first();
                 }
-                $this->openModal = false;
-                ($this->modalType == 'add') ? $this->toastAlert = ['alert' => 'success', 'message' => $this->record->name . ' added successfully!'] : $this->toastAlert = ['alert' => 'success', 'message' => $this->record->name . ' updated successfully!'];
-                break;
+                switch ($value['modalType']) {
+                    case 'add':
+                        $this->resetForm('user');
+                        $this->record = new User();
+                        break;
 
-            case 'delete':
-                $this->record->delete();
-                $this->confirmModalStatus = !$this->confirmModalStatus;
-                $this->toastAlert = ['alert' => 'danger', 'message' => $this->record->name . ' deleted successfully!'];
-                break;
+                    case 'update':
+                        $this->resetErrorBag();
+                        $this->user['name'] = $value['record']['formData']['name'];
+                        $this->user['email'] = $value['record']['formData']['email'];
+                        $this->user['gender'] = $value['record']['formData']['gender_id'];
 
-            case 'reset_password':
-                $password = Data::generate_password();
-                $this->record->password = Hash::make($password);
-                $this->record->save();
-                Mail::to($this->record->email)->send(new ResetPassword($this->record->name, $this->record->email, $password));
-                $this->confirmModalStatus = !$this->confirmModalStatus;
-                $this->toastAlert = ['alert' => 'success', 'message' => 'Password was rest for ' . $this->record->name];
-                break;
 
+                        break;
+                    case 'delete':
+                    case 'password-reset':
+                        break;
+                }
+                break;
+        }
+    }
+
+
+    public function roleToggle($data)
+    {
+        $user = Query::user($data['userID']);
+        if (($this->permission('admin-user-role-toggle'))) {
+
+            $roles_based_on_guard = Role::where('guard_name', 'web')->pluck('id')->toArray();
+
+            $array = [];
+            foreach ($data['collection'] as $roleID) {
+                if (in_array($roleID, $roles_based_on_guard)) array_push($array, intval($roleID));
+            }
+            $user->roles()->sync(($array));
+            $this->emitSelf('refreshComponent');
+            $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => $user->name . ' roles were updated!']);
+        } else {
+            $this->AccessDeniedModal('access-denied-modal', '', '<div class="flex flex-col justify-center items-center"><span class="flex">You are not authorized to change roles for </span> <span class="flex pl-2 font-bold">"' . $user->name . '"</span></div>');
+//            $this->dispatchBrowserEvent('access-denied-modal', ['show' => true, 'message' => 'You are not authorized to change roles for "' . $user->name]);
+//            $this->emitSelf('refreshComponent');
         }
 
     }
 
+    public function submit()
+    {
+        switch ($this->myModal['model']) {
+            case 'user':
+                $this->submitForm($this, 'user', $this->myModal['modalType'], $this->myModal['formType'], $this->record, $this->user, $this->rules());
+                break;
+        }
+    }
+
     public function render()
     {
-        $records = User::paginate(10);
-        return view('livewire.admin.users.datatable', ['records' => $records]);
+        if ($this->permission('admin-user-view')) {
+            $gender = Gender::select('id', 'name')->get();
+            $records = User::with('roles')->orderBy('created_at', 'desc')->paginate(10);
+            $allRoles = Role::where('guard_name', 'web')->get();
+            return view('livewire.admin.users.datatable', ['records' => $records, 'allRoles' => $allRoles, 'gender' => $gender]);
+        } else {
+            $this->dispatchBrowserEvent('access-denied', true);
+            return view('livewire.errors.access-denied', ['name' => 'Users']);
+        }
 
 
     }
@@ -144,6 +143,7 @@ class Datatable extends Component
         return [
             'user.name' => 'required|min:4',
             'user.email' => 'required|email|unique:users,email,' . $this->userID,
+            'user.gender'=>'required'
 //            'user.password' => 'required', 'confirmed',Password::defaults()
         ];
     }
@@ -156,4 +156,12 @@ class Datatable extends Component
         ];
     }
 
+    public function resetForm($form)
+    {
+        switch ($form) {
+            case 'user':
+                $this->user = ['name' => '', 'email' => '', 'gender' => ''];
+                break;
+        }
+    }
 }

@@ -5,7 +5,7 @@
     <meta name="format-detection" content="telephone=no"/>
 
     <!-- MESSAGE SUBJECT -->
-    <title>Responsive HTML email templates</title>
+    <title>{{ config('app.name') }}</title>
     <link rel="stylesheet" href="style.css">
 
 </head>

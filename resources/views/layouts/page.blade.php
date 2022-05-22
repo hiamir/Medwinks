@@ -29,8 +29,8 @@
 {{ $slot }}
 <script src="https://code.jquery.com/jquery-3.2.1.min.js" integrity="sha256-hwg4gsxgFZhOsEEamdOYGBf13FyQuiTwlAQgxVSNgt4=" crossorigin="anonymous"></script>
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jQuery-slimScroll/1.3.8/jquery.slimscroll.min.js"></script>
-<script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script>
-<script src="https://unpkg.com/flowbite@1.4.4/dist/datepicker.js"></script>
+{{--<script src="https://unpkg.com/flowbite@1.4.4/dist/flowbite.js"></script>--}}
+{{--<script src="https://unpkg.com/flowbite@1.4.4/dist/datepicker.js"></script>--}}
 <script>
     const setup = () => {
         function getSidebarStateFromLocalStorage() {

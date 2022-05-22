@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use Carbon\Carbon;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
@@ -42,4 +43,34 @@ class User extends Authenticatable implements MustVerifyEmail
     protected $casts = [
         'email_verified_at' => 'datetime',
     ];
+
+
+
+    public function profilePhoto(){
+        return $this->belongsTo(DefaultProfilePhoto::class,'default_profile_photo_id');
+    }
+
+    public function documents(){
+        return $this->hasMany(Document::class);
+    }
+
+    public function passports(){
+        return $this->hasMany(Passport::class);
+    }
+
+    public function applications(){
+        return $this->hasMany(Application::class,'users_id','id');
+    }
+
+    public function getCreatedAtAttribute($value)
+    {
+        $date = Carbon::parse($value); // now date is a carbon instance
+        return $date->diffForHumans(Carbon::now());
+    }
+
+    public function getUpdatedAtAttribute($value)
+    {
+        $date = Carbon::parse($value); // now date is a carbon instance
+        return $date->diffForHumans(Carbon::now());
+    }
 }
