@@ -31,13 +31,8 @@
                 </svg>
 
             </button>
-            <span
-                class="flex p-2 items-center justify-start text-md font-semibold uppercase lg:hidden text-gray-800 dark:text-gray-200 ml-0"><img
-                    class="flex w-10 h-10 p-1 rounded-full ring-2 ring-gray-300 dark:ring-gray-500"
-                    src="{{asset('storage/images/logo.svg')}}"
-                    alt="Bordered avatar">
-{{--                <span class="ml-3">ED-Manager</span>--}}
-            </span>
+            <img class="flex w-30 h-10 place-items-center"  :class="{ ' xs:hidden': isSidebarOpen,'lg:hidden':!isSidebarOpen}" src="{{asset('storage/images/logo-letter.svg')}}"
+                 alt="">
         </div>
 
         <!-- Mobile search box -->

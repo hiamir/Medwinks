@@ -53,13 +53,13 @@
             {{--                        SHOW FILE NAME              --}}
             <template  x-if="!tempUrl && (documentSelectedFile !== undefined && documentSelectedFile.length > 0 )">
                 <p x-show="((!tempUrl && documentSelectedFile !== undefined))"
-                   class="text-xs flex mb-2 px-2 py-1 text-gray-200 bg-red-900 rounded-lg "
+                   class="text-xs flex mb-2 px-2 py-1 text-gray-200 bg-red-900 rounded-lg text-center"
                    x-text="documentSelectedFile"></p>
             </template>
 
             <p class="mb-2 text-sm text-gray-500 dark:text-gray-400"><span class="font-semibold">Click to upload</span>
                 or drag and drop</p>
-            <p class="text-xs text-gray-500 dark:text-gray-400">PNG, JPG, GIF, DOC, DOCX OR PDF (Max file
+            <p class="text-xs text-center px-5 text-gray-500 dark:text-gray-400">PNG, JPG, GIF, DOC, DOCX OR PDF (Max file
                 size:
                 500kb)</p>
             <p x-show="fileValidationError"

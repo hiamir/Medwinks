@@ -22,14 +22,14 @@
     <div class="grid grid-cols-1 space-y-5">
         {{--            STATS           --}}
         <div
-            class="grid grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  xs:grid-cols-1 space-x-5">
+            class="grid grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  xs:grid-cols-1 ">
 
 
-            <div @click.prevent="$wire.goApplication('review')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-blue-700/[0.5] hover:bg-blue-700/[0.6] shadow-md justify-center items-center">
+            <div @click.prevent="$wire.goApplication('review')" class="col-span-1 min-h-[120px] p-6 rounded-lg  cursor-pointer  bg-blue-700/[0.5] hover:bg-blue-700/[0.6] shadow-md justify-center items-center m-5">
                 <div class="flex flex-row justify-start items-center">
                     <div class="flex w-16">
                         <x-svg.main type="document-text"
-                                    class="flex self-end relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
+                                    class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
                         <span x-show="(newApplicationCount > 0)"
                               class="absolute flex border-4 border-red-800 dark:border-gray-100 rounded-full h-[40px] w-[40px] justify-center items-center animate-ping"> </span>
                     </div>
@@ -42,8 +42,7 @@
                     </div>
                 </div>
             </div>
-
-            <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg cursor-pointer  bg-indigo-700/[0.5] hover:bg-indigo-700/[0.6] shadow-md justify-center items-center">
+            <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg cursor-pointer  bg-indigo-700/[0.5] hover:bg-indigo-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
                     <div class="flex w-16">
                         <x-svg.main type="refresh"
@@ -58,11 +57,11 @@
                     </div>
                 </div>
             </div>
-            <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-yellow-700/[0.5] hover:bg-yellow-700/[0.6] shadow-md justify-center items-center">
+            <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-yellow-700/[0.5] hover:bg-yellow-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
                     <div class="flex w-16">
                         <x-svg.main type="refresh"
-                                    class="flex self-end relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
+                                    class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
                         <span x-show="(revisionCount > 0)"
                               class="absolute flex border-4 border-red-800 dark:border-gray-100 rounded-full h-[40px] w-[40px] justify-center items-center animate-ping"> </span>
                     </div>
@@ -75,12 +74,11 @@
                     </div>
                 </div>
             </div>
-
-            <div @click.prevent="$wire.goApplication('rejected')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-red-700/[0.5] hover:bg-red-700/[0.6] shadow-md justify-center items-center">
+            <div @click.prevent="$wire.goApplication('rejected')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-red-700/[0.5] hover:bg-red-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
                     <div class="flex w-16">
                         <x-svg.main type="x"
-                                    class="flex self-end relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]">
+                                    class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]">
                         </x-svg.main>
                     </div>
                     <div class="flex flex-col">
@@ -94,9 +92,9 @@
             </div>
         </div>
         {{--            GRAPH           --}}
-        <div class="grid grid-cols-10 space-x-5">
+        <div class="grid grid-cols-10 !mt-0">
 
-            <div class="col-span-6 p-6 relative border rounded-lg border-gray-600">
+            <div class="xs:hidden md:flex flex-col m-5 col-span-6 p-6 relative border rounded-lg border-gray-600">
                 <h4 class="flex text-xl text-gray-400 font-semibold mb-4"
                     x-text="'Applications submitted this year'"></h4>
                 <div class="relative">
@@ -105,7 +103,7 @@
                     </div>
                 </div>
             </div>
-            <div class="col-span-4 p-6 border rounded-lg border-gray-600 ">
+            <div class="xs:col-span-12 lg:col-span-4 m-5 p-6 border rounded-lg border-gray-600 ">
 
                 <h4 x-show="isUserManager" class="flex text-xl text-gray-400 font-semibold mb-2"
                     x-text="'Latest applications'"></h4>
@@ -119,7 +117,7 @@
                             <p class="flex inline-flex justify-start items-center ">
                                 <span class="flex justify-center items-center">
                                     <x-svg.main type="document-text"
-                                                class="flex relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] ">  </x-svg.main>
+                                                class="flex relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] ">  </x-svg.main>
                                 </span>
                             </p>
                             <div class="flex flex-col ml-3">
@@ -146,21 +144,21 @@
                                     <x-svg.main
                                         x-show="application.accepted===0 && application.rejected===0 && application.revision===0"
                                         type="question-open"
-                                        class="flex relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] ">  </x-svg.main></span>
+                                        class="flex relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] ">  </x-svg.main></span>
                                 <x-svg.main
                                     x-show="application.accepted===1 && application.rejected===0 && application.revision===0"
                                     type="check-open"
-                                    class="flex relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] "></x-svg.main>
+                                    class="flex relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] "></x-svg.main>
                                 </span>
                                 <x-svg.main
                                     x-show="application.accepted===0 && application.rejected===1 && application.revision===0"
                                     type="delete-open"
-                                    class="flex relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] "></x-svg.main>
+                                    class="flex relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] "></x-svg.main>
                                 </span>
                                 <x-svg.main
                                     x-show="application.accepted===0 && application.rejected===0 && application.revision===1"
                                     type="refresh"
-                                    class="flex  relative z-10 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] "></x-svg.main>
+                                    class="flex  relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] "></x-svg.main>
                                 </span>
                             </p>
                             <div class="flex flex-col ml-3">

@@ -1,4 +1,4 @@
-<div class="flex flex-row mb-2">
+<div class="flex flex-row flex-wrap mb-2">
 
     <button @click.prevent="filterRecord='all'" type="button" class="inline-flex justify-center items-center  text-gray-900 group hover:text-white border border-gray-800 hover:bg-gray-900
     focus:ring-4 focus:outline-none focus:ring-gray-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center

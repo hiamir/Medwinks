@@ -61,5 +61,5 @@
 
     {{--                DELETE MODAL STARTS HERE      --}}
     <x-datatable.modal.delete ></x-datatable.modal.delete>
-</x-datatable.main>}
+</x-datatable.main>
 

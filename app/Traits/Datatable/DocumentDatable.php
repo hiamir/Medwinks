@@ -225,6 +225,46 @@ trait DocumentDatable
     }
 
 
+    public function submit()
+    {
+        switch ($this->myModal['model']) {
+            case 'client-details':
+            case 'document':
+
+                switch ($this->myModal['formType']) {
+                    case 'document':
+                        $this->documentType = 'document';
+                        if ($this->myModal['modalType'] === 'update' || $this->myModal['modalType'] === 'delete') {
+
+                            $this->record = Document::with('applications')->where('id', $this->myModal['record']['formData']['id'])->first();
+                            $this->documentID = $this->record->id;
+                        }
+                        switch ($this->myModal['modalType']) {
+
+                            case 'delete':
+                                if ($this->permission('user-document-delete')) {
+                                    if (count($this->record->applications) === 0) {
+                                        if (($this->record->accepted === 1 && $this->record->rejected === 0 && $this->record->revision === 0)) {
+                                            $this->dispatchBrowserEvent('error-modal', ['show' => true, 'type' => 'error', 'title' => 'Document Decision!', 'message' => 'Cannot delete as document decision was finalized']);
+                                        } else {
+                                            $this->submitForm($this, $this->myModal['model'], $this->myModal['modalType'], $this->myModal['formType'], $this->record, $this->document, $this->documentRules());
+                                        }
+                                    } else {
+                                        $this->dispatchBrowserEvent('error-modal', ['show' => true, 'type' => 'error', 'title' => 'document Link!', 'message' => 'Cannot delete as one or more of the applications are using this document']);
+                                    }
+                                } else {
+                                    $this->dispatchBrowserEvent('error-modal', ['show' => true, 'type' => 'error', 'title' => 'Access Denied!', 'message' => 'You are not authorized to delete documents']);
+                                }
+                                break;
+                        }
+                        break;
+                }
+                break;
+        }
+    }
+
+
+
     public function submitDocument()
     {
         switch ($this->myModal['model']) {

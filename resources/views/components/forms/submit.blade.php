@@ -1,7 +1,7 @@
 @props(['name'])
 <div
     x-init="console.log('MD: '+modalDetails.modalType)"
-    class="relative"
+    class="relative mb-5"
     :class="{
     'flex justify-center text-center bg-blue-700 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  focus:ring-blue-300 text-white focus:ring-4 focus:outline-none font-medium rounded-lg text-sm text-center': modalDetails.modalType==='add',
     'flex justify-center text-center bg-blue-700 border dark:border-blue-500 hover:bg-blue-800 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800  focus:ring-blue-300 text-white text-xs uppercase focus:ring-4 focus:outline-none font-medium rounded-lg text-sm text-center  tracking-widest': modalDetails.modalType==='update',

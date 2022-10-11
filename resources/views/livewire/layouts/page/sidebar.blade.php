@@ -36,7 +36,7 @@
               <span class="flex justify-center">
                   <img class="flex w-40 h-15 place-items-center" :class="{'lg:hidden': !isSidebarOpen}" src="{{asset('storage/images/logo.svg')}}"
                        alt=""> </span>
-               <img class="flex w-30 h-10 place-items-center"  :class="{'lg:hidden': isSidebarOpen}" src="{{asset('storage/images/logo-letter.svg')}}"
+               <img class="flex w-30 h-10 place-items-center"  :class="{ 'lg:hidden xs:hidden': isSidebarOpen}" src="{{asset('storage/images/logo-letter.svg')}}"
                     alt=""> </span>
 {{--            <span class="ml-3" :class="{'lg:hidden': !isSidebarOpen}">ED-Manager</span>--}}
           </span>
@@ -157,30 +157,30 @@
     </x-navigation.main>
     <!-- Sidebar footer -->
     <div class="flex-shrink-0 p-2 border-t dark:border-gray-700 max-h-[60px] h-[60px]">
-        <form method="POST" action="{{ route('admin.logout') }}">
-            @csrf
-            <button
-                class="flex bg-red-500 dark:bg-red-500 border-red-500/[0.6] text-white hover:bg-red-600/[1] hover:border-red-500/[0.6] items-center justify-center w-full px-4 py-2 space-x-1 font-medium uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring"
-            >
-        <span>
-          <svg
-              class="w-6 h-6"
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-          >
-            <path
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"
-            />
-          </svg>
-        </span>
-                <span :class="{'lg:hidden': !isSidebarOpen}"> Logout </span>
-            </button>
-        </form>
+{{--        <form method="POST" action="{{ route('admin.logout') }}">--}}
+{{--            @csrf--}}
+{{--            <button--}}
+{{--                class="flex bg-red-500 dark:bg-red-500 border-red-500/[0.6] text-white hover:bg-red-600/[1] hover:border-red-500/[0.6] items-center justify-center w-full px-4 py-2 space-x-1 font-medium uppercase bg-gray-100 border rounded-md focus:outline-none focus:ring"--}}
+{{--            >--}}
+{{--        <span>--}}
+{{--          <svg--}}
+{{--              class="w-6 h-6"--}}
+{{--              xmlns="http://www.w3.org/2000/svg"--}}
+{{--              fill="none"--}}
+{{--              viewBox="0 0 24 24"--}}
+{{--              stroke="currentColor"--}}
+{{--          >--}}
+{{--            <path--}}
+{{--                stroke-linecap="round"--}}
+{{--                stroke-linejoin="round"--}}
+{{--                stroke-width="2"--}}
+{{--                d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"--}}
+{{--            />--}}
+{{--          </svg>--}}
+{{--        </span>--}}
+{{--                <span :class="{'lg:hidden': !isSidebarOpen}"> Logout </span>--}}
+{{--            </button>--}}
+{{--        </form>--}}
     </div>
 </aside>
 {{--</div>--}}

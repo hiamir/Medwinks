@@ -15,8 +15,9 @@
          console.log(value);
       })
 "
+     class="flex w-full justify-center items-center"
 >
-    <x-auth-card type="two_factor" header="Two Factor Authentication" guard="web" class="">
+    <x-auth-card type="two_factor" header="Two Factor Authentication" guard="web" class="flex xs:w-full">
         <div class="mt-2 mb-1 text-sm text-gray-600 dark:text-gray-200 text-center">
             {{ __('Verify your two-factor code sent to your email: ') }} <strong>{{auth()->user()->email}}</strong>
         </div>
@@ -122,7 +123,7 @@
                        @keydown="verificationCode[0]=''"
                        @keyup.prevent="if(validateKeys.includes(verificationCode[0])){ $wire.verifyCode(); $refs.two.focus();}"
                        x-model="verificationCode[0]"
-                       class="m-2 border h-[50px] w-[50px] font-bold text-xl text-center form-control rounded"
+                       class="flex m-2 border xs:h-[28px] xs:w-[28px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] font-bold text-xl text-center form-control rounded"
                        :class="{'dark:bg-gray-900/[0.3] dark:border-gray-900/[0.7]':isCodeExpired}" type="text"
                        id="first" maxlength="1"/>
 
@@ -130,7 +131,7 @@
                        @keydown="verificationCode[1]=''"
                        @keyup.prevent="if(validateKeys.includes(verificationCode[1])) $wire.verifyCode(); if(verificationCode[1] !== null ) $refs.three.focus();"
                        x-model="verificationCode[1]"
-                       class="m-2 border h-[50px] w-[50px] font-bold text-xl text-center form-control rounded"
+                       class="flex m-2 border xs:h-[28px] xs:w-[28px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] font-bold text-xl text-center form-control rounded"
                        :class="{'dark:bg-gray-900/[0.3] dark:border-gray-900/[0.7]':(isCodeExpired || !validateKeys.includes(verificationCode[0]) )}" type="text"
                        id="second" maxlength="1"/>
 
@@ -138,7 +139,7 @@
                        @keydown="verificationCode[2]=''"
                        @keyup.prevent="if(validateKeys.includes(verificationCode[2])) $wire.verifyCode(); if(verificationCode[2] !== null ) $refs.four.focus();"
                        x-model="verificationCode[2]"
-                       class="m-2 border h-[50px] w-[50px] font-bold text-xl text-center form-control rounded"
+                       class="flex m-2 border xs:h-[28px] xs:w-[28px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] font-bold text-xl text-center form-control rounded"
                        :class="{'dark:bg-gray-900/[0.3] dark:border-gray-900/[0.7]':(isCodeExpired || !validateKeys.includes(verificationCode[1]) )}" type="text"
                        id="second" maxlength="1"/>
 
@@ -146,7 +147,7 @@
                        @keydown="verificationCode[3]=''"
                        @keyup.prevent="if(validateKeys.includes(verificationCode[3])) $wire.verifyCode(); if(verificationCode[3] !== null ) $refs.five.focus();"
                        x-model="verificationCode[3]"
-                       class="m-2 border h-[50px] w-[50px] font-bold text-xl text-center form-control rounded"
+                       class="flex m-2 border xs:h-[28px] xs:w-[28px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] font-bold text-xl text-center form-control rounded"
                        :class="{'dark:bg-gray-900/[0.3] dark:border-gray-900/[0.7]':(isCodeExpired || !validateKeys.includes(verificationCode[2]) )}" type="text"
                        id="second" maxlength="1"/>
 
@@ -155,7 +156,7 @@
                        @keydown="verificationCode[4]=''"
                        @keyup.prevent="if(validateKeys.includes(verificationCode[4])) $wire.verifyCode(); if(verificationCode[4] !== null ) $refs.six.focus();"
                        x-model="verificationCode[4]"
-                       class="m-2 border h-[50px] w-[50px] font-bold text-xl text-center form-control rounded"
+                       class="flex m-2 border xs:h-[28px] xs:w-[28px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] font-bold text-xl text-center form-control rounded"
                        :class="{'dark:bg-gray-900/[0.3] dark:border-gray-900/[0.7]':(isCodeExpired || !validateKeys.includes(verificationCode[3]) )}" type="text"
                        id="second" maxlength="1"/>
 
@@ -163,7 +164,7 @@
                        @keydown="verificationCode[5]=''"
                        @keyup.prevent="if(validateKeys.includes(verificationCode[5])) $wire.verifyCode();"
                        x-model="verificationCode[5]"
-                       class="m-2 border h-[50px] w-[50px] font-bold text-xl text-center form-control rounded"
+                       class="flex m-2 border xs:h-[28px] xs:w-[28px] sm:h-[45px] sm:w-[45px] md:h-[50px] md:w-[50px] font-bold text-xl text-center form-control rounded"
                        :class="{'dark:bg-gray-900/[0.3] dark:border-gray-900/[0.7]':(isCodeExpired || !validateKeys.includes(verificationCode[4]) )}" type="text"
                        id="second" maxlength="1"/>
             </div>
