@@ -361,7 +361,7 @@ trait Data
         $t->two_factor_expires_at = Data::generate_two_factor_expiry();
         $t->save();
 
-        Mail::to($t->email)->queue(new TwoFactor($t->name, $t->two_factor_code, true));
+        Mail::to($t->email)->send(new TwoFactor($t->name, $t->two_factor_code, true));
 
         return $code;
     }

@@ -1,6 +1,9 @@
 <!DOCTYPE html>
 <html lang="{{ str_replace('_', '-', app()->getLocale()) }}"
-      x-data="{ darkMode: localStorage.getItem('dark') === 'true'} "
+      x-data="{
+      darkMode: true
+{{--      darkMode: localStorage.getItem('dark') === 'true'--}}
+      } "
       x-init="$watch('darkMode', val => localStorage.setItem('dark', val))"
       x-bind:class="{ 'dark': darkMode }"
 >
@@ -26,7 +29,7 @@
     <body>
         <div
 {{--            x-data="{darkMode:false}"--}}
-            class="font-sans text-gray-900 bg-gray-600 dark:bg-gray-800 antialiased flex justify-center items-center h-screen" >
+            class="font-sans text-gray-900 bg-gray-600 dark:bg-gray-800 antialiased flex justify-center items-center min-h-screen px-10 py-10 xs:px-2" >
 {{--            <x-button x-on:click="darkMode=!darkMode">Darkmode</x-button>--}}
             {{ $slot }}
         </div>
