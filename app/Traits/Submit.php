@@ -5,12 +5,15 @@ namespace App\Traits;
 use App\Mail\DocumentDecision;
 use App\Mail\DocumentUpdate;
 use App\Mail\DocumentUpdateManager;
+use App\Mail\NewDocumentManager;
+use App\Mail\NewPassportManager;
 use App\Mail\PassportUpdate;
 use App\Mail\PassportUpdateManager;
 use App\Mail\ResetPassword;
 use App\Mail\TwoFactor;
 use App\Mail\Welcome;
 use App\Models\DefaultProfilePhoto;
+use App\Models\ServiceRequirement;
 use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -899,6 +902,10 @@ trait Submit
                             } else {
                                 $this->success = $record->save();
                             }
+                            if($this->success) {
+                                $userEmail=User::find($record->user_id);
+                                Mail::to(config('app.admin_email'))->send(new NewPassportManager($userEmail->name));
+                            }
 
                             $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Passport added successfully!']);
                             break;
@@ -910,9 +917,16 @@ trait Submit
                                 $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
 
                                 $this->uploadFile($file, 'documents', $this->record['file']);
-                                $record->save();
+                                $this->record['seen']=0;
+                                $this->record->save();
                             } else {
-                                $this->success = $record->save();
+                                $this->record['seen']=0;
+                                $this->success = $this->record->save();
+                            }
+                            if($this->success) {
+                                $userEmail=User::find($record->user_id);
+                                $documentType=ServiceRequirement::find($record->service_requirement_id);
+                                Mail::to(config('app.admin_email'))->send(new NewDocumentManager($userEmail->name,$documentType->name));
                             }
                             $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Document added successfully!']);
                             break;

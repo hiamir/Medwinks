@@ -4,6 +4,7 @@ namespace App\Http\Livewire\User\SubmitApplication;
 
 use App\Http\Livewire\Authenticate;
 use App\Mail\NewApplication;
+use App\Mail\NewApplicationManager;
 use App\Mail\ResetPassword;
 use App\Mail\Welcome;
 use App\Models\Application;
@@ -58,6 +59,7 @@ class Datatable extends Authenticate
         $degreeData = [],
         $collection = [],
         $application = [];
+    public bool $rejectCheckbox=false;
 
     public $userID, $tempName, $tempUrl, $path = '', $fileView = '', $universityID = "",$serviceName="";
 
@@ -196,6 +198,7 @@ class Datatable extends Authenticate
                     $serviceName=$this->serviceName;
                     $newApplication->selectedDocuments()->sync($this->finalSelectedDocument);
                     Mail::to($user->email)->send(new NewApplication($user->name,$serviceName));
+                    Mail::to(config('app.admin_email'))->send(new NewApplicationManager(auth()->user()->name,$user->name,$serviceName));
                     $this->step = 1;
                     $this->universityID = "";
                     $this->serviceID = null;

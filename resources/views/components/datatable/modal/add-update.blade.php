@@ -1,12 +1,12 @@
 <div
-    class="z-20 overflow-y-auto hidden overflow-x-hidden fixed top-0 right-0 left-0 w-full md:inset-0 h-modal md:h-full flex justify-center items-center h-screen drop-shadow-md5"
+    class="z-20  px-10 justify-center items-center overflow-y-auto hidden overflow-x-hidden fixed top-0 right-0 left-0 w-full md:inset-0 h-modal md:h-full flex justify-center items-center h-screen drop-shadow-md5"
     :class="{'hidden':AddUpdateModal.show===false, 'flex':AddUpdateModal.show===true}" {{$attributes}}
 >
     <div
-        class="flex flex-row  overflow-y-auto justify-center max-w-lg max-h-[80%] w-full bg-gray-200 rounded-lg border border-gray-200 drop-shadow-md2 dark:bg-gray-800 dark:border-gray-700"
+        class="flex flex-row overflow-y-auto justify-center  max-h-[80%] w-full bg-gray-200 rounded-lg border border-gray-200 drop-shadow-md2 dark:bg-gray-800 dark:border-gray-700"
         :class=
         "{
-            'relative p-4 w-full max-w-md h-full md:h-auto max-w-[90%]':AddUpdateModal.size=='small',
+            'relative p-4 w-full max-w-md h-full md:h-auto max-w-[90%]': AddUpdateModal.size=='small',
             'relative p-4 w-full max-w-xl h-full md:h-auto max-w-[90%]' : AddUpdateModal.size=='medium',
             'relative p-4 w-full max-w-4xl h-full md:h-auto max-w-[90%]' : AddUpdateModal.size=='large',
             'relative p-4 w-full max-w-7xl h-full md:h-auto max-w-[90%]' :AddUpdateModal.size=='xlarge'

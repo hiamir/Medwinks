@@ -7,18 +7,19 @@ use Illuminate\Contracts\Queue\ShouldQueue;
 use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 
-class NewApplication extends Mailable
+class NewApplicationManager extends Mailable
 {
     use Queueable, SerializesModels;
 
-    public $name,$serviceName;
+    public $name,$serviceName,$manager_name;
     /**
      * Create a new message instance.
      *
      * @return void
      */
-    public function __construct($name,$serviceName)
+    public function __construct($manager_name,$name,$serviceName)
     {
+        $this->manager_name=$manager_name;
         $this->name=$name;
         $this->serviceName=$serviceName;
     }
@@ -30,6 +31,6 @@ class NewApplication extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.new-application',['name'=>$this->name,'serviceName'=>$this->serviceName])->subject('Requested service '.$this->serviceName.' submitted!');
+        return $this->markdown('mail.new-application-manager',['manager_name'=>$this->manager_name,'name'=>$this->name,'serviceName'=>$this->serviceName])->subject('New application from '.$this->name);
     }
 }

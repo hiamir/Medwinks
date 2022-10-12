@@ -23,6 +23,7 @@ class Datatable extends Authenticate
 {
 
     use WithPagination;
+    use General;
     use Submit;
     use Data;
 

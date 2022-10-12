@@ -62,10 +62,7 @@ class Datatable extends Authenticate
         Redirect::route('user.application', [$id]);
     }
 
-    public function userDetails($id)
-    {
-        Redirect::route('user.client-details', [$id]);
-    }
+
 
 
     public function applicationChat($app)

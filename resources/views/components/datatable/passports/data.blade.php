@@ -3,7 +3,7 @@
     @if($this->permission('user-passport-create'))
         <div
             @click.prevent="MyModal('add','passport',{'formData':{} }); documentSelected={}; documentSelected.file=''; tempUrl=''; $wire.resetPassport()"
-            class="flex flex-col p-6 w-full min-h-64  justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer dark:hover:bg-gray-900/[0.5]"
+            class="flex flex-col p-6 w-full  min-h-[260px]  justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer dark:hover:bg-gray-900/[0.5]"
             {{--                                :class="{'dark:!bg-red-900/[0.5] hover:dark:!bg-red-900/[0.7] dark:border-red-900':documentpassport.rejected===1, 'dark:!bg-green-900/[0.5] hover:dark:!bg-green-900/[0.7] dark:border-green-900':documentpassport.accepted===1}"--}}
         >
             <x-svg.main

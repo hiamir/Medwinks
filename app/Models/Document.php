@@ -9,20 +9,25 @@ use Illuminate\Database\Eloquent\Model;
 class Document extends Model
 {
     use HasFactory;
-    public function serviceRequirement(){
+
+    public function serviceRequirement()
+    {
         return $this->belongsTo(ServiceRequirement::class);
     }
 
-    public function applications(){
-       return  $this->belongsToMany(Application::class,'application_documents');
+    public function applications()
+    {
+        return $this->belongsToMany(Application::class, 'application_documents');
     }
 
-public function user(){
-      return   $this->belongsTo(User::class,'user_id','id');
-}
+    public function user()
+    {
+        return $this->belongsTo(User::class, 'user_id', 'id');
+    }
 
-    public function comments(){
-        return $this->morphToMany(Comments::class,'commentable');
+    public function comments()
+    {
+        return $this->morphToMany(Comments::class, 'commentable');
     }
 //    public function getCreatedAtAttribute($value)
 //    {

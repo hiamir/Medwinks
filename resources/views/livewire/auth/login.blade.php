@@ -36,7 +36,7 @@
         <div class="flex items-start">
             <div class="flex items-start">
                 <div class="flex items-center h-5">
-                    <x-checkbox wire:model="remember" name="remember"/>
+                    <x-checkbox wire:model.defer="remember" name="remember"/>
                 </div>
                 <x-label for="Remember me" class="pl-2"/>
             </div>

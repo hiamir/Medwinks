@@ -54,7 +54,7 @@
     </div>
 
     @if ($this->permission('user-submit-application-create'))
-    <a href="{{route('user.submit-application')}}" class="flex items-center p-2 cursor-pointer h-[74px] text-base font-normal text-gray-900 transition duration-75
+    <a href="{{route('user.submit-application')}}" class="flex items-center p-2 cursor-pointer h-[74px] max-h-[74px] text-base font-normal text-gray-900 transition duration-75
               hover:bg-gray-200 dark:text-white inline-flex relative justify-start items-start relative font-semibold text-center text-white bg-red-700
               md:mb-0 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-900 dark:hover:bg-red-800 "
        :class="{ 'pl-11': isSidebarOpen, 'lg:justify-center': !isSidebarOpen } ">

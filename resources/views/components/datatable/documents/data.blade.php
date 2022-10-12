@@ -19,10 +19,10 @@
     <template x-for="(document,index) in documents" :key="index">
         <div >
             <div x-show="documentID===document.id" class="  bg-gray-50 rounded-lg dark:bg-transparent">
-                <div  class="p-4 w-full grid xxl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
+                <div  class="p-4 w-full grid xxl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
                     @if($this->permission('user-document-create'))
                         <div @click.prevent="MyModal('add','document',{'formData':{} }); documentSelected={}; documentSelected.file=''; tempUrl=''; $wire.resetDocument()"
-                            class="flex flex-col p-6 w-full min-h-64  justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer dark:hover:bg-gray-900/[0.5]"
+                            class="flex flex-col p-6 w-full  min-h-[260px]  justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer dark:hover:bg-gray-900/[0.5]"
                             {{--                                :class="{'dark:!bg-red-900/[0.5] hover:dark:!bg-red-900/[0.7] dark:border-red-900':documentFile.rejected===1, 'dark:!bg-green-900/[0.5] hover:dark:!bg-green-900/[0.7] dark:border-green-900':documentFile.accepted===1}"--}}
                         >
                             <x-svg.main
@@ -35,10 +35,10 @@
 
                         <div :id="'frame-'+index"
                              @click.prevent.self="(canDocumentUpdate === false) ? ErrorModal = { 'show': true, 'type': 'error', 'title': 'Access Denied!', 'message': 'Cannot update as file decision was finalized' } : '' ;
-                              ((file.accepted===0 && file.rejected===0 && file.revision===1) && isUserManager===true ) ? MyModal('update','document',{'formData':file}) : ErrorModal = { 'show': true, 'type': 'error', 'title': 'Revision!', 'message': 'Cannot update as the document is under review' };
+                              ((file.accepted===0 && file.rejected===0 && file.revision===1)  ) ? MyModal('update','document',{'formData':file}) : ErrorModal = { 'show': true, 'type': 'error', 'title': 'Revision!', 'message': 'Cannot update as the document is under review' };
                               ((file.accepted===1 && file.rejected===0 && file.revision===0) || (file.accepted===0 && file.rejected===1 && file.revision===0)) ? ErrorModal = { 'show': true, 'type': 'error', 'title': 'Final Decision!', 'message': 'Cannot update as the final decision was made on this document' }: '';
                               documentSelected=file; tempUrl='';"
-                             class="flex cursor-pointer flex-col p-6 z-10 relative  @if($this->permission('user-file-update')) pt-2 @else pt-5 @endif px-2 max-w-xm justify-center items-center bg-white rounded-lg border shadow-md "
+                             class="flex cursor-pointer min-w-[200px] flex-col p-6 z-10 relative  @if($this->permission('user-file-update')) pt-2 @else pt-5 @endif px-2 max-w-xm justify-center items-center bg-white rounded-lg border shadow-md "
                              :class="{
                          'dark:!bg-red-900/[0.5] hover:dark:!bg-red-900/[0.7] dark:border-red-900' : (file.accepted===0 && file.rejected===1 && file.revision===0),
                          'dark:!bg-green-900/[0.5] hover:dark:!bg-green-900/[0.7] dark:border-green-900':(file.accepted===1 && file.rejected===0 && file.revision===0),

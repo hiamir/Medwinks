@@ -15,6 +15,8 @@ return [
 
     'default' => env('MAIL_MAILER', 'smtp'),
 
+
+
     /*
     |--------------------------------------------------------------------------
     | Mailer Configurations
@@ -91,8 +93,8 @@ return [
     */
 
     'from' => [
-        'address' => env('MAIL_FROM_ADDRESS', 'admin@edmanager.com'),
-        'name' => env('MAIL_FROM_NAME', 'Editorial Manager'),
+        'address' => env('MAIL_FROM_ADDRESS', 'admin@medwinks.com'),
+        'name' => env('MAIL_FROM_NAME', 'Medwinks'),
     ],
 
     /*

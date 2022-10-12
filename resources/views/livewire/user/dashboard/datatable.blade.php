@@ -11,23 +11,29 @@
         applicationCount={{$applications->applicationCount}}
         newApplicationCount={{$newApplicationCount}}
         acceptedCount={{$applications->acceptedCount}}
-        revisionCount={{$applications->revisionCount}}
-        rejectedCount={{$applications->rejectedCount}}
-        documentsRevisionCount={{$documentsRevisionCount}}
+        revisionCount={{ $applications->revisionCount }}
+        rejectedCount= {!! $applications->rejectedCount !!}
+        documentsRevisionCount= {{$documentsRevisionCount}}
+        documentAction={{$documentAction}}
         latest={{$latest}}
-        console.log(newApplicationCount)
+        console.log(documentAction)
 "
 
 >
-    <div class="grid grid-cols-1 space-y-5">
+    <x-wire_loading></x-wire_loading>
+
+    <div wire:loading.remove class="grid grid-cols-1 space-y-5">
+
+
         {{--            STATS           --}}
-        <div
-            class="grid grid-cols-4 xl:grid-cols-4 lg:grid-cols-4 md:grid-cols-3 sm:grid-cols-2  xs:grid-cols-1 ">
+
+        <div class="grid grid-cols-4 xl:grid-cols-4 lg:grid-cols-2 md:grid-cols-2 sm:grid-cols-2  xs:grid-cols-1 ">
 
 
-            <div @click.prevent="$wire.goApplication('review')" class="col-span-1 min-h-[120px] p-6 rounded-lg  cursor-pointer  bg-blue-700/[0.5] hover:bg-blue-700/[0.6] shadow-md justify-center items-center m-5">
+            <div @click.prevent="$wire.goApplication('review')"
+                 class="col-span-1 min-w-[200px] min-h-[120px] p-6 rounded-lg  cursor-pointer  bg-blue-700/[0.5] hover:bg-blue-700/[0.6] shadow-md justify-center items-center m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex w-16">
+                    <div class="flex relative w-16">
                         <x-svg.main type="document-text"
                                     class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
                         <span x-show="(newApplicationCount > 0)"
@@ -42,9 +48,10 @@
                     </div>
                 </div>
             </div>
-            <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg cursor-pointer  bg-indigo-700/[0.5] hover:bg-indigo-700/[0.6] shadow-md justify-center items-center  m-5">
+            <div @click.prevent="$wire.goDocument('review')"
+                 class="col-span-1 p-6  min-w-[200px] min-h-[120px] rounded-lg cursor-pointer  bg-indigo-700/[0.5] hover:bg-indigo-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex w-16">
+                    <div class="flex relative w-16">
                         <x-svg.main type="refresh"
                                     class="h-[40px] w-[40px] text-red-800 dark:text-gray-300 "></x-svg.main>
                         <span x-show="(documentsRevisionCount > 0)"
@@ -57,9 +64,10 @@
                     </div>
                 </div>
             </div>
-            <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-yellow-700/[0.5] hover:bg-yellow-700/[0.6] shadow-md justify-center items-center  m-5">
+            <div @click.prevent="$wire.goApplication('revision')"
+                 class="col-span-1 p-6 rounded-lg   min-w-[200px] min-h-[120px] cursor-pointer  bg-yellow-700/[0.5] hover:bg-yellow-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex w-16">
+                    <div class="flex relative w-16">
                         <x-svg.main type="refresh"
                                     class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
                         <span x-show="(revisionCount > 0)"
@@ -74,9 +82,10 @@
                     </div>
                 </div>
             </div>
-            <div @click.prevent="$wire.goApplication('rejected')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-red-700/[0.5] hover:bg-red-700/[0.6] shadow-md justify-center items-center  m-5">
+            <div @click.prevent="$wire.goApplication('rejected')"
+                 class="col-span-1 p-6 rounded-lg  min-w-[200px] min-h-[120px]  cursor-pointer  bg-red-700/[0.5] hover:bg-red-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex w-16">
+                    <div class="flex relative w-16">
                         <x-svg.main type="x"
                                     class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]">
                         </x-svg.main>
@@ -91,10 +100,111 @@
                 </div>
             </div>
         </div>
+
+        {{--            ATTENTION           --}}
+        <div class="flex flex-col m-5 !mb-5   p-6 relative border rounded-lg border-gray-600">
+            <h4 class="flex text-xl text-gray-400 font-semibold mb-4"
+                x-text="'Attention Required'"></h4>
+
+
+            <div class="overflow-x-auto relative">
+                <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                    <thead class="text-xs  text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
+                    <tr>
+                        <th scope="col" class="rounded-tl-md py-3 px-6" style="width:5%">
+                            #
+                        </th>
+                        <template x-if="isUserManager === true">
+                            <th scope="col" class="py-3 px-6" style="width:10%">
+                            User
+                        </th>
+                        </template>
+                        <th scope="col" class="py-3 px-6" style="width:20%">
+                            Document Type
+                        </th>
+                        <th scope="col" class="py-3 px-6" style="width:20%">
+                            Document
+                        </th>
+                        <th scope="col" class="py-3 px-6 text-center" style="width:20%">
+                            Decision
+                        </th>
+                        <th scope="col" class="py-3 px-6 text-center" style="width:35%">
+                            Comment
+                        </th>
+
+                    </tr>
+                    </thead>
+                    <tbody>
+                    <template x-for="(doc,index) in documentAction" :key="index">
+                        <tr  @click.prevent="$wire.attentionDocument(doc.id)" class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-900/[0.5]">
+                            <th>
+                                <p x-show="doc.seen===0" class="flex relative top-0 left-0">
+                                <span
+                                    class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                <span class="flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 rounded-full h-3 w-3 bg-sky-500"></span>
+                                <span
+                                    class=" flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 animate-ping h-3 w-3 inline-flex rounded-full bg-sky-400 opacity-75"></span>
+                                    </span>
+                                </p>
+                            </th>
+                            <template x-if="isUserManager === true">
+                            <th>
+                                <div class="flex justify-center items-center">
+                                    <button  @click.prevent.self="$wire.userDetails(doc.user.id);" type="button" class="text-blue-700 whitespace-nowrap hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
+                focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white
+                dark:hover:bg-blue-600 dark:focus:ring-blue-800" x-text="doc.user.name">
+
+                                    </button>
+                                </div>
+
+                            </th>
+                            </template>
+
+                            <th scope="row"
+                                class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
+                                <span x-text="doc.service_requirement.name"></span>
+                            </th>
+                            <td class="py-4 px-6">
+                                <span x-text="doc.name"></span>
+                            </td>
+                            <td class="py-4 px-6 text-center">
+                                <x-svg.main x-show="doc.rejected===0 && doc.accepted===1 && doc.revision===0"
+                                            type="check-open"
+                                            class="h-6 w-6 text-red-800 dark:text-gray-300 m-1"></x-svg.main>
+                                <x-svg.main x-show="doc.rejected===1 && doc.accepted===0 && doc.revision===0"
+                                            type="delete-open"
+                                            class="h-6 w-6 text-red-800 dark:text-gray-300 m-1"></x-svg.main>
+                                <x-svg.main x-show="doc.rejected===0 && doc.accepted===0 && doc.revision===1"
+                                            type="refresh"
+                                            class="h-6 w-6 text-yellow-800 dark:text-gray-300 m-1"></x-svg.main>
+                                <span x-text="'Revision required'"></span>
+
+                            </td>
+                            <td class="py-4 px-6 text-center">
+                                <span>
+                                    <template x-for="(comment, index) in doc.comments" :key="index">
+                                        <span x-show="index===0" x-text="comment.comment"></span>
+                                    </template>
+
+                                </span>
+                                <span x-show="doc.comments.length === 0" x-text="'Not available'"></span>
+                            </td>
+
+                        </tr>
+                    </template>
+
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
+
+
         {{--            GRAPH           --}}
         <div class="grid grid-cols-10 !mt-0">
 
-            <div class="xs:hidden md:flex flex-col m-5 col-span-6 p-6 relative border rounded-lg border-gray-600">
+            <div
+                class="xs:hidden md:flex flex-col m-5  md:col-span-12 lg:col-span-6 md:landscape:hidden lg:landscape:flex p-6 relative border rounded-lg border-gray-600">
                 <h4 class="flex text-xl text-gray-400 font-semibold mb-4"
                     x-text="'Applications submitted this year'"></h4>
                 <div class="relative">

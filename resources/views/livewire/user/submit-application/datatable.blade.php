@@ -17,7 +17,6 @@
     {{--    DATATABLE  --}}
     <x-datatable.table :dataRecord=null>
         <div class="flex h-full justify-center items-start pt-0">
-
             <div
                 class="flex flex-col p-8 w-full justify-center items-center bg-white rounded-lg border shadow-md xs:min-h-[500px]  md:min-w-4xl dark:border-gray-700 dark:bg-gray-800">
 
@@ -54,7 +53,7 @@
                         <div class="flex flex-col h-full p-4 justify-center items-center leading-normal">
 
                             <div class="flex flex-col grow justify-center items-center">
-                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
+                                <h5 class="mb-2 text-2xl text-center font-bold tracking-tight text-gray-900 dark:text-white">
                                     Medwinks online application submission</h5>
                                 <p class="mb-3 font-normal text-gray-700 dark:text-gray-400 text-center">
                                     Please make sure you have uploaded your valid (Active) <a
@@ -81,7 +80,7 @@
                     {{--                PASSPORT                --}}
                     <div x-show="stepID===steps[1].id" id="information"
                          class="flex  w-full justify-center items-center ">
-                        <div class="flex flex-col h-full p-4 py-10 justify-center items-center leading-normal">
+                        <div class="flex flex-col h-full p-4 py-10 px-0 justify-center items-center leading-normal">
                             <template x-if="Object.entries(passport).length > 0">
                                 <div class="flex flex-col grow justify-center items-center">
                                     {{--                                <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white"> Passport technology acquisitions 2021 </h5>--}}
@@ -91,7 +90,7 @@
                                     <p class="text-sm text-gray-300 font-semibold mb-4"  x-text="'Select the active passport inorder to continue'"></p>
                                         <div
                                             @click.prevent="application.passportID=passport.id"
-                                            class="cursor-pointer p-6 min-w-sm max-w-sm bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-900/[0.7]"
+                                            class="cursor-pointer p-6 min-w-sm xs:max-w-sm lg:w-[350px] lg:min-w-lg lg:max-w-lg bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-900/[0.7]"
                                             :class="{'dark:!border-blue-700/[0.7] dark:!bg-gray-900 hover:dark:!bg-gray-900' : application.passportID===passport.id}"
                                         >
                                             <div x-show="moment(passport.expiry_date).isBefore(moment())"
@@ -112,31 +111,31 @@
                                             <h6 class="mb-2 text-lg font-bold tracking-tight text-gray-900 dark:text-white border-b border-gray-600 pb-2"
                                                 x-text="passport.passport_number"></h6>
                                             <div class="grid gap-y-4 pt-2">
-                                                <div class="grid grid-cols-12 gap-4 w-full ">
-                                                    <div class="col-span-4 font-semibold text-gray-400"
-                                                         x-text="'Full name '"></div>
-                                                    <div class="col-span-8  text-gray-400"
+                                                <div class="grid grid-cols-12 w-full ">
+                                                    <div class="lg:col-span-5 xs:col-span-12 font-semibold text-gray-200"
+                                                         x-text="'Full name'"></div>
+                                                    <div class="lg:col-span-7 xs:col-span-12  text-gray-400"
                                                          x-text="passport.given_name + ' '+ passport.sur_name "></div>
                                                 </div>
 
-                                                <div class="grid grid-cols-12 gap-4 w-full ">
-                                                    <div class="col-span-4 font-semibold text-gray-400"
-                                                         x-text="'Data of birth '"></div>
-                                                    <div class="col-span-8  text-gray-400"
+                                                <div class="grid grid-cols-12  w-full ">
+                                                    <div class="lg:col-span-5 xs:col-span-12 font-semibold text-gray-200"
+                                                         x-text="'Data of birth'"></div>
+                                                    <div class="lg:col-span-7 xs:col-span-12  text-gray-400 whitespace-nowrap"
                                                          x-text="moment(passport.date_of_birth).format('MMMM DD, YYYY')"></div>
                                                 </div>
 
-                                                <div class="grid grid-cols-12 gap-4 w-full ">
-                                                    <div class="col-span-4 font-semibold text-gray-400"
-                                                         x-text="'Issue Date '"></div>
-                                                    <div class="col-span-8  text-gray-400"
-                                                         x-text="moment(passport.issue_date).format('MMMM DD, YYYY')"></div>
+                                                <div class="grid grid-cols-12  w-full ">
+                                                    <div class="lg:col-span-5 xs:col-span-12 font-semibold text-gray-200"
+                                                         x-text="'Issue Date'"></div>
+                                                    <div class="lg:col-span-7 xs:col-span-12  text-gray-400 whitespace-nowrap"
+                                                         x-text="moment(passport.issue_Date).format('MMMM DD, YYYY')"></div>
                                                 </div>
 
-                                                <div class="grid grid-cols-12 gap-4 w-full ">
-                                                    <div class="col-span-4 font-semibold text-gray-400"
-                                                         x-text="'Expiry Date '"></div>
-                                                    <div class="col-span-8 text-gray-400"
+                                                <div class="grid grid-cols-12 w-full ">
+                                                    <div class="lg:col-span-5 xs:col-span-12 font-semibold text-gray-200"
+                                                         x-text="'Expiry Date'"></div>
+                                                    <div class="lg:col-span-7 xs:col-span-12 text-gray-400"
                                                          :class="{'text-red-700 font-semibold': moment(passport.expiry_date).isBefore(moment())}"
                                                          x-text="moment(passport.expiry_date).format('MMMM DD, YYYY')">
                                                 <span
@@ -144,17 +143,17 @@
                                                     </div>
                                                 </div>
 
-                                                <div class="grid grid-cols-12 gap-4 w-full ">
-                                                    <div class="col-span-4 font-semibold text-gray-400"
+                                                <div class="grid grid-cols-12 w-full ">
+                                                    <div class="lg:col-span-5 fxs:col-span-12 font-semibold text-gray-200"
                                                          x-text="'Country '"></div>
-                                                    <div class="col-span-8  text-gray-400"
+                                                    <div class="lg:col-span-7  xs:col-span-12 text-gray-400"
                                                          x-text="passport.country.name"></div>
                                                 </div>
 
-                                                <div class="grid grid-cols-12 gap-4 w-full ">
-                                                    <div class="col-span-4 font-semibold text-gray-400"
+                                                <div class="grid grid-cols-12 w-full ">
+                                                    <div class="lg:col-span-5 xs:col-span-12 font-semibold text-gray-200"
                                                          x-text="'Region '"></div>
-                                                    <div class="col-span-8  text-gray-400"
+                                                    <div class="lg:col-span-7 xs:col-span-12  text-gray-400"
                                                          x-text="passport.region.name"></div>
                                                 </div>
 
@@ -192,12 +191,12 @@
                         <div class="flex flex-col w-full h-full py-4 justify-center items-center leading-normal">
 
                             <div
-                                class="block p-6 my-10 max-w-xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900/[0.5]"
+                                class="flex p-6 my-10 max-w-xl w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900/[0.5]"
                                 :class="{'dark:!border-blue-700/[0.7] dark:!bg-gray-900 hover:dark:!bg-gray-900' : (application.universityID !=='' && application.universityID === university) }"
                             >
 
-                                <x-bundle.select x-data="university" class="!text-left  w-[500px]">
-                                    <select x-bind="bindUniversity">
+                                <x-bundle.select x-data="university" class="!text-left w-full">
+                                    <select x-bind="bindUniversity"  class="flex w-full">
                                         <x-bundle.select-options></x-bundle.select-options>
                                     </select>
                                 </x-bundle.select>
@@ -209,21 +208,21 @@
 
                     {{--                QUALIFICATION                --}}
                     <div x-show="stepID===steps[3].id" id="qualification"
-                         class="flex flex-col grow justify-center items-center ">
+                         class="flex flex-col w-full grow justify-center items-center ">
 
                         <div
-                            class="block p-6 my-10 max-w-xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
+                            class="flex w-full  p-6 my-10 max-w-xl bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-900"
                             :class="{'dark:!border-blue-700/[0.7] dark:!bg-gray-900 hover:dark:!bg-gray-900' : (application.degreeID !=='' && application.degreeID === degree) }"
                         >
                             <div class="flex flex-col w-full h-full pt-4 justify-center items-start leading-normal">
-                                <x-bundle.select x-data="qualification" class="!text-left w-[500px]">
+                                <x-bundle.select x-data="qualification" class="!text-left w-full">
                                     <select x-bind="bindQualification">
                                         <x-bundle.select-options></x-bundle.select-options>
                                     </select>
                                 </x-bundle.select>
 
                                 <div class="flex flex-col w-full pt-8 pb-4 justify-center items-center leading-normal">
-                                    <x-bundle.select x-data="degree" class="!text-left  w-[500px]">
+                                    <x-bundle.select x-data="degree" class="!text-left  w-full">
                                         <select x-bind="bindDegree">
                                             <x-bundle.select-options></x-bundle.select-options>
                                         </select>
@@ -236,14 +235,14 @@
 
                     {{--                SERVICE             --}}
                     <div x-show="stepID===steps[4].id" id="information" class="flex w-full ">
-                        <div class="flex flex-col h-full p-4 justify-center items-center leading-normal">
+                        <div class="flex flex-col w-full  h-full p-4 px-0 justify-center items-center leading-normal">
                             <h5 class="mb-2 text-md text-left font-bold tracking-tight text-gray-900 dark:text-white">
                                 Choose a service you want to enroll
                             </h5>
                             <div class="flex flex-col  justify-start items-start w-full ">
-                                <div class="flex flex-1 grow grid grid-cols-12 gap-4 ">
+                                <div class="flex flex-1 w-full grow grid grid-cols-12 gap-4 ">
                                     <template x-for="service in services">
-                                        <div class="flex flex-1 col-span-4 ">
+                                        <div class="flex flex-1 col-span-4 xs:col-span-12 md:col-span-6 lg:col-span-4">
                                             <a @click.prevent="serviceID=service.id; serviceName=service.name; selectedDocuments=[]"
                                                class="cursor-pointer flex flex-col p-6 w-full bg-white rounded-lg border border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 dark:hover:bg-gray-700"
                                                :class="{'!bg-yellow-400 !text-gray-900' : serviceID===service.id }"
@@ -341,15 +340,15 @@
                                                  class="p-4 px-0 bg-gray-50 rounded-lg dark:bg-gray-800">
 
                                                 <div x-show="requirement.documents.length === 0"
-                                                     class="flex flex-row justify-start items-center p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900 dark:text-gray-200"
+                                                     class="flex xs:flex-col  md:flex-row xs:space-y-2 md:space-y-0 justify-start items-center p-4 mb-4 text-sm text-red-700 bg-red-100 rounded-lg dark:bg-red-900 dark:text-gray-200"
                                                      role="alert">
                                                     <x-svg.main type="exclamation-circle"
                                                                 class="flex h-6 w-6 text-red-800 dark:text-gray-100 mr-2"></x-svg.main>
-                                                    <span class="flex text-gray-100 font-semibold"
+                                                    <span class="flex text-gray-100 font-semibold xs:text-center"
                                                           x-text="'No documents available. Please uploaded supporting documents for &nbsp;'"></span>
                                                     <span> <a @click="setDocumentID=requirement.id; "
                                                               href="{{route('user.documents')}}"
-                                                              class="font-semibold underline dark:text-yellow-300 dark:hover:text-yellow-200"
+                                                              class="flex font-semibold underline dark:text-yellow-300 dark:hover:text-yellow-200"
                                                               x-text="requirement.name"></a>
                                                     </span>
                                                 </div>
@@ -358,7 +357,7 @@
                                                     class="text-md font-bold tracking-tight text-gray-900 dark:text-white">
                                                     Available documents
                                                 </h5>
-                                                <span class="text-sm text-gray-400" x-text="'Please select the document'"></span>
+                                                <span x-show="requirement.documents.length > 0" class="text-sm text-gray-400" x-text="'Please select the document'"></span>
                                                 <div
                                                     class="p-4 px-0 grid xxl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
                                                     <template x-for="document in requirement.documents"
@@ -458,10 +457,10 @@
 
                     {{--                FINISH SUMMARY             --}}
                     <div x-show="stepID===steps[6].id" id="finish" class="flex w-full justify-center items-center ">
-                        <div class="flex flex-col h-full p-4 leading-normal justify-center items-center ">
+                        <div class="flex flex-col h-full w-full p-4 px-0 leading-normal justify-center items-center ">
 
                             <div
-                                class="block p-6 md:min-w-[400px] max-w-xl bg-white rounded-lg border my-10 border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 ">
+                                class="block w-full p-6 md:min-w-[400px] max-w-xl bg-white rounded-lg border my-10 border-gray-200 shadow-md hover:bg-gray-100 dark:bg-gray-800 dark:border-gray-700 ">
                                 <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">
                                     Summary</h5>
 
@@ -530,7 +529,8 @@
                 </div>
 
                 {{--                FOOTER                  --}}
-                <div class="flex  w-full justify-end">
+                <div class="flex  w-full xs:justify-center
+                lg:justify-end ">
                     <!-- Previous Button -->
                     <a x-show="stepID !== 1" @click.prevent="stepID--"
                        class="inline-flex cursor-pointer items-center py-2 px-4 mr-3 text-sm font-medium text-gray-500 bg-white rounded-lg border border-gray-300 hover:bg-gray-100 hover:text-gray-700 dark:bg-gray-800 dark:border-gray-700 dark:text-gray-400 dark:hover:bg-gray-700 dark:hover:text-white">

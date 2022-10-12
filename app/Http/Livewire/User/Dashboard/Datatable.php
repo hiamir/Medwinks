@@ -11,6 +11,7 @@ use App\Models\PermissionExtends;
 use App\Models\Region;
 use App\Models\User;
 use App\Traits\Data;
+use App\Traits\Datatable\General;
 use App\Traits\Submit;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
@@ -23,6 +24,7 @@ use Spatie\Permission\Models\Permission;
 class Datatable extends Authenticate
 {
     use WithPagination;
+    use General;
     use Submit;
     use Data;
 
@@ -91,6 +93,19 @@ class Datatable extends Authenticate
         return ($this->isUserManager ?  redirect()->to('applications-all-submissions') : redirect()->to('applications-submissions') );
     }
 
+    public function goDocument($code)
+    {
+        session()->put('code', $code);
+        return ($this->isUserManager ?  redirect()->to('applications-all-documents') : redirect()->to('documents') );
+    }
+
+    public function attentionDocument($docID){
+        $document=Document::with('serviceRequirement')->find($docID);
+        $document->seen=1;
+        $document->save();
+        redirect()->to('documents');
+    }
+
     public function render()
     {
         if ($this->permission('user-dashboard-view')) {
@@ -99,7 +114,7 @@ class Datatable extends Authenticate
 
 
             if ($this->isUserManager) {
-                $documentsRevisionCount=count(Document::where('revision',1)->get());
+                $documentsRevisionCount=count(Document::where('accepted',0)->where('rejected',0)->where('revision',0)->get());
 
                 $newApplicationsCount=count(Application::where('accepted',0)->where('rejected',0)->where('revision',0)->get());
                 $applications = Application::
@@ -111,8 +126,15 @@ class Datatable extends Authenticate
                         SUM(CASE WHEN applications.rejected = '1' THEN 1 ELSE 0 END) AS rejectedCount
                         ")
                     ->first();
+
+                if($applications->acceptedCount === null)  $applications->acceptedCount=0;
+                if( $applications->revisionCount === null )  $applications->revisionCount=0;
+                if($applications->rejectedCount === null )  $applications->rejectedCount=0;
+
+                $documentAction= Document::with(['user','serviceRequirement','comments'])->where('accepted',0)->where('revision',0)->where('rejected',0)->get();
+
                 $latest = Application::with(['service', 'user'])->orderBy('created_at', 'desc')->get()->take(5);
-                return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications, 'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount]);
+                return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications, 'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'documentAction'=>$documentAction]);
             } else {
                 $documentsRevisionCount=count(Document::where('user_id',auth()->user()->id)->where('revision',1)->get());
                 $newApplicationsCount=count(Application::where('accepted',0)->where('rejected',0)->where('revision',0)->where('users_id', auth()->user()->id)->get());
@@ -125,11 +147,17 @@ class Datatable extends Authenticate
                         SUM(CASE WHEN applications.rejected = '1' THEN 1 ELSE 0 END) AS rejectedCount
                         ")
                     ->where('users_id', auth()->user()->id)->first();
+                if($applications->acceptedCount === null)  $applications->acceptedCount=0;
+                if( $applications->revisionCount === null )  $applications->revisionCount=0;
+                if($applications->rejectedCount === null )  $applications->rejectedCount=0;
+
+               $documentAction= Document::with(['serviceRequirement','comments'])->where('user_id',auth()->user()->id)->where('accepted',0)->where('revision',1)->where('rejected',0)->get();
 
 
                 $latest = Application::with(['service', 'user'])->orderBy('created_at', 'desc')->where('users_id', auth()->user()->id)->get()->take(5);
 
-                return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications, 'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount]);
+                return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications,
+                    'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'documentAction'=>$documentAction]);
             }
 
 

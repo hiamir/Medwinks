@@ -7,6 +7,7 @@ use App\Models\Document;
 use App\Models\Passport;
 use App\Traits\Authorize;
 use App\Traits\Data;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Storage;
 
 trait General
@@ -46,6 +47,11 @@ trait General
                 }
                 break;
         }
+    }
+
+    public function userDetails($id)
+    {
+        Redirect::route('user.client-details', [$id]);
     }
 
     public function photoView($file, $type = null)

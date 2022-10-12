@@ -12,7 +12,7 @@
             <p x-show="validationErrors['passport.passport_number']"  class= "!m-0 text-xs text-red-600 dark:text-red-600" x-text="validationErrors['passport.passport_number']"> </p>
         </div>
         {{--            Name        --}}
-        <div class="grid grid-cols-2 xs:grid-cols-1 ">
+        <div class="grid  xs:grid-cols-1 lg:grid-cols-2">
             <div class="mb-1 xs:mb-8 ">
                 <label for="given_name" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Given
                     name</label>
@@ -31,8 +31,8 @@
         </div>
 
         {{--            dates        --}}
-        <div class="grid grid-cols-3 xs:grid-cols-1 md:space-x-3 xs:!mt-0">
-            <div class="mb-3 xs:mb-8 ">
+        <div class="grid  xs:grid-cols-1 lg:grid-cols-3 md:space-x-3 xs:!mt-0">
+            <div class="mb-3 xs:mb-8 xs:!ml-0 lg:!ml-0">
                 <label for="date_of_birth" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Date
                     of birth</label>
                 <input x-bind="bindPassportDateOfBirth" id="dob"
@@ -40,7 +40,7 @@
                        class="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <p x-show="validationErrors['passport.date_of_birth']"  class= "!m-0 !mt-1 text-xs text-red-600 dark:text-red-600" x-text="validationErrors['passport.date_of_birth']"> </p>
             </div>
-            <div class="mb-3 xs:mb-8">
+            <div class="mb-3 xs:mb-8 xs:!ml-0 lg:!ml-3">
                 <label for="passport_issue_date"
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Passport issue
                     date</label>
@@ -48,7 +48,7 @@
                         class="bg-gray-50 border cursor-pointer border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-800 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500">
                 <p x-show="validationErrors['passport.issue_date']"  class= "!m-0 !mt-1 text-xs text-red-600 dark:text-red-600" x-text="validationErrors['passport.issue_date']"> </p>
             </div>
-            <div class="mb-3 xs:mb-8">
+            <div class="mb-3 xs:mb-8 xs:!ml-0 lg:!ml-3">
                 <label for="passport_expiry_date"
                        class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-300">Passport expiry
                     date</label>
@@ -59,7 +59,7 @@
         </div>
 
         {{--            countries and regions        --}}
-        <div class="grid grid-cols-2 xs:grid-cols-1 xs:!mt-0">
+        <div class="grid grid-cols-2 xs:grid-cols-1 lg:grid-cols-2 lg:space-x-3 xs:!mt-0">
             <div class="mb-3 xs:mb-8">
                 <label for="countries" class="block mb-2 text-sm font-medium text-gray-900 dark:text-gray-400">Select
                     your country</label>

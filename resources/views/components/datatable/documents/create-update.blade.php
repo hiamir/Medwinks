@@ -1,6 +1,8 @@
 <x-datatable.modal.add-update
     x-data="{modalType:''}"
-    x-init="$watch('modalDetails',function(value){ modalType=(value.modalType) })"
+    x-init="
+     AddUpdateModal.size='medium';
+    $watch('modalDetails',function(value){ modalType=(value.modalType) })"
 
     x-show="modalDetails.formType==='document'">
     <x-form @submit.prevent="$wire.submitDocument" hasFiles=true class="space-y-6" novalidate autocomplete="off">
