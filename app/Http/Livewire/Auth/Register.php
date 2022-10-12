@@ -82,6 +82,7 @@ class Register extends Component
 
     public function register()
     {
+        $this->user['email']=(trim($this->user['email'],' '));
         $this->validate();
         $user=new User();
         $user->name = Data::capitalize_each_word($this->user['name']);
