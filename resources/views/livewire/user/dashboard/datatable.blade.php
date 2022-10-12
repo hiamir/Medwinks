@@ -27,7 +27,7 @@
 
             <div @click.prevent="$wire.goApplication('review')" class="col-span-1 min-h-[120px] p-6 rounded-lg  cursor-pointer  bg-blue-700/[0.5] hover:bg-blue-700/[0.6] shadow-md justify-center items-center m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex relative w-16">
+                    <div class="flex w-16">
                         <x-svg.main type="document-text"
                                     class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
                         <span x-show="(newApplicationCount > 0)"
@@ -44,7 +44,7 @@
             </div>
             <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg cursor-pointer  bg-indigo-700/[0.5] hover:bg-indigo-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex relative w-16">
+                    <div class="flex w-16">
                         <x-svg.main type="refresh"
                                     class="h-[40px] w-[40px] text-red-800 dark:text-gray-300 "></x-svg.main>
                         <span x-show="(documentsRevisionCount > 0)"
@@ -59,7 +59,7 @@
             </div>
             <div @click.prevent="$wire.goApplication('revision')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-yellow-700/[0.5] hover:bg-yellow-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex relative w-16">
+                    <div class="flex w-16">
                         <x-svg.main type="refresh"
                                     class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]"></x-svg.main>
                         <span x-show="(revisionCount > 0)"
@@ -76,7 +76,7 @@
             </div>
             <div @click.prevent="$wire.goApplication('rejected')" class="col-span-1 p-6 rounded-lg  cursor-pointer  bg-red-700/[0.5] hover:bg-red-700/[0.6] shadow-md justify-center items-center  m-5">
                 <div class="flex flex-row justify-start items-center">
-                    <div class="flex relative w-16">
+                    <div class="flex w-16">
                         <x-svg.main type="x"
                                     class="flex self-end relative z-0 h-[40px] w-[40px] text-red-800 dark:text-gray-100/[0.8] hover:!text-gray-300/[0.7]">
                         </x-svg.main>

@@ -40,8 +40,6 @@ class Login extends Component
 
     public function login()
     {
-
-        $this->email=(trim($this->email,' '));
         $validate = $this->validate();
         $this->ensureIsNotRateLimited();
         if (!Auth::attempt($validate, $this->remember)) {
