@@ -10,6 +10,7 @@ use App\Traits\Datatable\DocumentPassportCommon;
 use App\Traits\Datatable\PassportDatable;
 use App\Traits\Submit;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
 use Livewire\WithFileUploads;
 use Livewire\WithPagination;
 
@@ -23,13 +24,17 @@ class Datatable extends Authenticate
     use Data;
 
     protected $listeners = ['myController', 'refreshPassportComponent' => '$refresh'];
-
-
+public ?int $sessionDocumentID=null;
 
     public function render()
     {
         if ($this->permission('user-document-view')) {
             $this->documentType='document';
+
+            if(Session::has('documentID')){
+                $this->documentID=Session::get('documentID');
+                Session::forget('documentID');
+            }
 //            $requirements=ServiceRequirement::all();
             $records = ServiceRequirement::with(['documents' => function ($q) {
                 $q->with('applications')->where('user_id', auth()->user()->id);

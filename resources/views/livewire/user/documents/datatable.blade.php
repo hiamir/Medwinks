@@ -2,10 +2,13 @@
 <x-datatable.main
     x-data=" Document($wire,{
         documents : {},
-        documentID : $persist(0)
+        documentID : $persist($wire.entangle('documentID')),
+        did : $wire.entangle('documentID')
     }) "
     x-init="
-    documents={{$records->getCollection()}}
+    console.log(did);
+    if(did !== null ) documentID = did;
+        documents={{$records->getCollection()}}
         "
 >
     <x-datatable.documents.data></x-datatable.documents.data>

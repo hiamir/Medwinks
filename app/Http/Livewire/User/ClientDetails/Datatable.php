@@ -31,6 +31,7 @@ use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Route;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Validation\Rules\Password;
 use Livewire\Component;
@@ -53,7 +54,7 @@ class Datatable extends Authenticate
 
 
     protected $listeners = ['myController', 'refreshComponent' => '$refresh'];
-    public string $filterRecord = 'all';
+    public string $filterRecord = 'all',$clientTab='application';
     public string $confirmationType = '', $universityName = '', $degreeName = '', $decision = '';
     public array $allRequirements = [];
     public $photo;
@@ -278,6 +279,17 @@ class Datatable extends Authenticate
         if ($this->permission('user-client-view')) {
             $profile = User::with(['passports', 'profilePhoto', 'documents'])->where('id', $this->userID)->first();
             $filterRecord = $this->filterRecord;
+
+            if(Session::has('documentID')){
+                $this->documentID=Session::get('documentID');
+                Session::forget('documentID');
+            }
+
+            if(Session::has('clientTab')){
+                $this->clientTab=Session::get('clientTab');
+                Session::forget('clientTab');
+            }
+
             $applications = Application::with(['passports', 'service'])
                 ->where('users_id', $this->userID)
                 ->with(['selectedDocuments' => function ($sd) {
@@ -354,7 +366,6 @@ class Datatable extends Authenticate
 //                            $applications = $data->where('accepted', 0)->where('rejected', 0)->where('revision', 1)->paginate(20);
 //                            break;
 //                    }
-
 
                     return view('livewire.user.client-details.datatable',
                         [

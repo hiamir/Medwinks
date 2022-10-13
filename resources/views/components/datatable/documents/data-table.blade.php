@@ -58,7 +58,8 @@
         <th scope="col" class="px-6 py-3" width="5%"  x-text="'#'"></th>
         <th scope="col" class="px-6 py-3 text-center" width="5%" x-text="'Comments'"> </th>
         <th scope="col" class="px-6 py-3 text-center" width="10%" x-text="'User'"></th>
-        <th @click.prevent="sortDataBy='user'" scope="col" class="px-6 py-3 text-center" width="50%" x-text="'Document'"></th>
+        <th  scope="col" class="px-6 py-3 text-center" width="20%" x-text="'Document Type'"></th>
+        <th  scope="col" class="px-6 py-3 text-left" width="40%" x-text="'Document'"></th>
         <th  scope="col" class="px-6 py-3 text-center" width="10%" x-text="'File'"></th>
 
         <th scope="col" class="px-6 py-3 text-right" width="10%" x-text="'Action'"> </th>
@@ -89,6 +90,13 @@
                 dark:hover:bg-blue-600 dark:focus:ring-blue-800" x-text="document.user.name">
 
                     </button>
+                </div>
+            </td>
+
+
+            <td  :id="'td-33-'+document.id" scope="row">
+                <div class="flex justify-center items-center">
+                  <span x-text="document.service_requirement.name"></span>
                 </div>
             </td>
 
@@ -145,7 +153,7 @@
                 <div class="flex flex-row justify-end items-end">
 
                     <button
-
+                        @click.prevent="$wire.attentionDocument(document.id)"
                         type="button" class="mb-0 "
                         :class="{
                                     'py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border border-gray-200 hover:bg-gray-100 hover:text-blue-700 focus:z-10 focus:ring-4 focus:ring-gray-200 dark:focus:ring-gray-700 dark:bg-gray-800 dark:text-gray-400 dark:border-gray-600 dark:hover:text-white dark:hover:bg-gray-700' :

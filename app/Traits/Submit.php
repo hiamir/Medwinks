@@ -205,6 +205,7 @@ trait Submit
 
                 }
                 break;
+
             case 'qualification':
                 switch ($formType) {
                     case 'qualification':
@@ -381,16 +382,6 @@ trait Submit
                                     $record['accepted'] = 0;
                                     $record['rejected'] = 0;
                                     $record['revision'] = 0;
-                                    if ($type === 'update') {
-                                        $user = User::find($record['user_id']);
-                                        Mail::to($user->email)->send(new DocumentUpdate($user->name, $record['name']));
-                                        $managers = User::role('manager')->get();
-                                        if (count($managers) > 0) {
-                                            foreach ($managers as $manager) {
-                                                Mail::to($manager->email)->send(new DocumentUpdateManager($user->name, $manager->name, $record['name']));
-                                            }
-                                        }
-                                    }
 
 
                                     if (is_object($field['file'])) $record['file'] = $field['file'];
@@ -902,8 +893,8 @@ trait Submit
                             } else {
                                 $this->success = $record->save();
                             }
-                            if($this->success) {
-                                $userEmail=User::find($record->user_id);
+                            if ($this->success) {
+                                $userEmail = User::find($record->user_id);
                                 Mail::to(config('app.admin_email'))->send(new NewPassportManager($userEmail->name));
                             }
 
@@ -911,24 +902,35 @@ trait Submit
                             break;
 
                         case 'document':
-                            if (is_object($this->record['file'])) {
-                                $this->success = $record->save();
-                                $file = $this->record['file'];
-                                $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
 
-                                $this->uploadFile($file, 'documents', $this->record['file']);
-                                $this->record['seen']=0;
-                                $this->record->save();
-                            } else {
-                                $this->record['seen']=0;
-                                $this->success = $this->record->save();
+                            try {
+                                DB::transaction(function () use ($record) {
+                                    if (is_object($this->record['file'])) {
+                                        $this->success = $record->save();
+                                        $file = $this->record['file'];
+                                        $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
+
+                                        $this->uploadFile($file, 'documents', $this->record['file']);
+                                        $this->record['seen'] = 0;
+                                        $this->record->save();
+                                    } else {
+                                        $this->record['seen'] = 0;
+                                        $this->success = $this->record->save();
+                                    }
+                                    if ($this->success) {
+                                        $user = User::find($record['user_id']);
+                                        Mail::to($user->email)->send(new DocumentUpdate($user->name, $record['name']));
+                                        Mail::to(config('app.admin_email'))->send(new DocumentUpdateManager($user->name, $user->name, $record['name']));
+                                    }
+                                    $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Document added successfully!']);
+                                });
+
+                            } catch (Throwable $e) {
+                                DB::rollback();
+                                $this->dispatchBrowserEvent('toast', ['alert' => 'danger', 'message' => 'There was an error updating document!']);
                             }
-                            if($this->success) {
-                                $userEmail=User::find($record->user_id);
-                                $documentType=ServiceRequirement::find($record->service_requirement_id);
-                                Mail::to(config('app.admin_email'))->send(new NewDocumentManager($userEmail->name,$documentType->name));
-                            }
-                            $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Document added successfully!']);
+
+
                             break;
 
                         case 'client-details':
@@ -947,17 +949,30 @@ trait Submit
                                     break;
 
                                 case 'document':
-                                    if (is_object($this->record['file'])) {
-                                        $this->success = $record->save();
-                                        $file = $this->record['file'];
-                                        $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
+                                    try {
+                                        DB::transaction(function () use ($record) {
+                                            if (is_object($this->record['file'])) {
+                                                $this->success = $record->save();
+                                                $file = $this->record['file'];
+                                                $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
 
-                                        $this->uploadFile($file, 'documents', $this->record['file']);
-                                        $record->save();
-                                    } else {
-                                        $this->success = $record->save();
+                                                $this->uploadFile($file, 'documents', $this->record['file']);
+                                                $record->save();
+                                            } else {
+                                                $this->success = $record->save();
+                                            }
+                                            if ($this->success) {
+                                                $user = User::find($record['user_id']);
+                                                Mail::to($user->email)->send(new DocumentUpdate($user->name, $record['name']));
+                                                Mail::to(config('app.admin_email'))->send(new DocumentUpdateManager($user->name, $user->name, $record['name']));
+                                            }
+                                            $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Document added successfully!']);
+                                        });
+
+                                    } catch (Throwable $e) {
+                                        DB::rollback();
+                                        $this->dispatchBrowserEvent('toast', ['alert' => 'danger', 'message' => 'There was an error updating document!']);
                                     }
-                                    $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Document added successfully!']);
                                     break;
                                 default:
                                     $this->success = $record->save();
@@ -1006,10 +1021,10 @@ trait Submit
                 try {
                     switch ($modal) {
                         case 'document':
-                            $file=$record->file;
+                            $file = $record->file;
                             $this->success = $record->delete();
-                            if($this->success ) {
-                                if(fileExists('/storage/images/documents/' . $file)) unlink('./storage/images/documents/' . $file);
+                            if ($this->success) {
+                                if (fileExists('/storage/images/documents/' . $file)) unlink('./storage/images/documents/' . $file);
                             }
                             $this->dispatchBrowserEvent('delete-modal', ['show' => false]);
                             $this->dispatchBrowserEvent('toast', ['alert' => 'danger', 'message' => $record->name . ' deleted successfully!']);
@@ -1039,28 +1054,27 @@ trait Submit
                             $this->dispatchBrowserEvent('toast', ['alert' => 'danger', 'message' => $record->name . ' deleted successfully!']);
                             break;
                     }
+                } catch
+                (ModelNotFoundException $exception) {
+                    $this->dispatchBrowserEvent('delete-modal', ['show' => false]);
+                    $this->toast('danger', 'Error:  ' . $exception->getMessage());
                 }
-                catch
-                    (ModelNotFoundException $exception) {
-                        $this->dispatchBrowserEvent('delete-modal', ['show' => false]);
-                        $this->toast('danger', 'Error:  ' . $exception->getMessage());
-                    }
                 break;
         }
     }
 
-        protected function uploadFile($record, $folder, $name)
-        {
-            try {
-                DB::transaction(function () use ($record, $folder, $name) {
-                    $this->fileStore($record, $folder, $name);
-                    $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'File uploaded successfully!']);
-                });
+    protected function uploadFile($record, $folder, $name)
+    {
+        try {
+            DB::transaction(function () use ($record, $folder, $name) {
+                $this->fileStore($record, $folder, $name);
+                $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'File uploaded successfully!']);
+            });
 
-            } catch (Throwable $e) {
-                DB::rollback();
-                $this->dispatchBrowserEvent('toast', ['alert' => 'danger', 'message' => 'There was an error uploading photo!']);
-            }
+        } catch (Throwable $e) {
+            DB::rollback();
+            $this->dispatchBrowserEvent('toast', ['alert' => 'danger', 'message' => 'There was an error uploading photo!']);
         }
-
     }
+
+}

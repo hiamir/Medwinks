@@ -3,7 +3,9 @@
         <ul class="flex flex-wrap -mb-px text-sm font-medium text-center" id="myTab">
             <template x-for="(document,index) in documents" :key="index">
                 <li
-                    x-init="if(!activeStart){ documentID=document.id; requirementTabID = document.id; activeStart=true; }"
+                    x-init="
+                    if(!activeStart){ documentID=document.id; requirementTabID = document.id; activeStart=true; }
+"
                     class="mr-2 mb-3" role="presentation">
                     <button @click.prevent="documentID=document.id; requirementTabID=document.id"
                             class="inline-block p-2 px-3 rounded-lg dark:text-gray-400 hover:text-blue-600  dark:hover:text-blue-500"
@@ -19,7 +21,7 @@
     <template x-for="(document,index) in documents" :key="index">
         <div >
             <div x-show="documentID===document.id" class="  bg-gray-50 rounded-lg dark:bg-transparent">
-                <div  class="p-4 w-full grid xxl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
+                <div  class="p-4 w-full grid xxxl:grid-cols-5 xxl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
                     @if($this->permission('user-document-create'))
                         <div @click.prevent="MyModal('add','document',{'formData':{} }); documentSelected={}; documentSelected.file=''; tempUrl=''; $wire.resetDocument()"
                             class="flex flex-col p-6 w-full  min-h-[260px]  justify-center items-center bg-white rounded-lg border border-gray-200 shadow-md dark:bg-gray-800 dark:border-gray-700 cursor-pointer dark:hover:bg-gray-900/[0.5]"

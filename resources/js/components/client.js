@@ -57,6 +57,8 @@ document.addEventListener('alpine:init', function () {
         additionalRequirements: $wire.entangle('additionalRequirements'),
         selectedRequirements: $wire.entangle('selectedRequirements'),
         filterRecord:$wire.entangle('filterRecord'),
+
+        cTab:data.cTab,
         //
         // dobFlatpickr: '',
 

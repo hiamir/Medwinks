@@ -26,6 +26,7 @@ module.exports = {
             lg: '1024px',
             xl: '1200px',
             xxl: '1400px',
+            xxxl: '1600px',
         },
         dropShadow: {
             'md2': '0 4px 3px rgba(0, 0, 0, 0.2)',

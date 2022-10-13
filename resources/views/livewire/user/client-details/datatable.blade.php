@@ -1,28 +1,31 @@
 <div class="flex w-full" x-data=" Client($wire,{
- clientTab:$persist('application')
+ clientTab:$persist($wire.entangle('clientTab')),
+ cTab:$wire.entangle('clientTab')
 }) ">
     <div class="flex w-full" x-data=" Passport($wire,{ 'passports': {}}) ">
 
         <x-datatable.main
             x-data="
-           Document($wire,{
+        Document($wire,{
         'requirements': {},
         routeName:'',
-           applications:[],
-        'documentID':$persist(0),
+        applications:[],
+        documentID:$persist(0),
         selectedRequirements:$wire.entangle('selectedRequirements'),
-
+        did : $wire.entangle('documentID')
         })
 "
 
             x-init="
- applicationsCount={{$applicationsCount}};
+                applicationsCount={{$applicationsCount}};
                 user={{$profile}}
                 applications={{$applications->getCollection()}}
                 documents={{$documents->getCollection()}}
                 passports={{$passports}}
                 countries={{$countries}}
                 routeName='user.client-details'
+                 if(cTab !== null ) clientTab = cTab;
+                 if(did !== null ) documentID = did;
                 "
         >
             <style>

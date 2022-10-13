@@ -1,5 +1,5 @@
 
-<div  class="p-4 w-full grid xxl:grid-cols-5 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
+<div  class="p-4 w-full grid xxxl:grid-cols-5 xxl:grid-cols-4 xl:grid-cols-4 lg:grid-cols-3 md:grid-cols-2 sm:grid-cols-2 xs:grid-cols-1 gap-4">
     @if($this->permission('user-passport-create'))
         <div
             @click.prevent="MyModal('add','passport',{'formData':{} }); documentSelected={}; documentSelected.file=''; tempUrl=''; $wire.resetPassport()"

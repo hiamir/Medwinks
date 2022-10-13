@@ -19,6 +19,7 @@ document.addEventListener('alpine:init', function () {
         // requirementData: $wire.requirement,
         documentType: $wire.entangle('documentType').defer,
         documentID: data.documentID,
+        did:data.did,
 
         isRecord: false,
         recordCount: 0,

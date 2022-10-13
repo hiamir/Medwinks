@@ -20,9 +20,8 @@
 "
 
 >
-    <x-wire_loading></x-wire_loading>
 
-    <div wire:loading.remove class="grid grid-cols-1 space-y-5">
+    <div class="grid grid-cols-1 space-y-5">
 
 
         {{--            STATS           --}}
@@ -60,7 +59,10 @@
                     <div class="flex flex-col">
                         <div class="flex text-2xl text-yellow-400 font-black"
                              x-text="twoDigitNumber(documentsRevisionCount)"></div>
-                        <div class="flex uppercase text-sm font-semibold text-gray-400">Documents for Revision</div>
+                        <div class="flex uppercase text-sm font-semibold text-gray-400">
+                            <span x-show="isUserManager" x-text="'Documents to Review'"></span>
+                            <span x-show="!isUserManager" x-text="'Documents for Revision'"></span>
+                            </div>
                     </div>
                 </div>
             </div>
@@ -119,19 +121,21 @@
                             User
                         </th>
                         </template>
-                        <th scope="col" class="py-3 px-6" style="width:20%">
+                        <th scope="col" class="py-3 px-6" style="width:15%">
                             Document Type
                         </th>
                         <th scope="col" class="py-3 px-6" style="width:20%">
                             Document
                         </th>
-                        <th scope="col" class="py-3 px-6 text-center" style="width:20%">
+                        <th scope="col" class="py-3 px-6 text-center" style="width:10%">
                             Decision
                         </th>
-                        <th scope="col" class="py-3 px-6 text-center" style="width:35%">
+                        <th scope="col" class="py-3 px-6 text-center" style="width:25%">
                             Comment
                         </th>
-
+                        <th scope="col" class="py-3 px-6 text-center" style="width:20%">
+                            Last updated
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
@@ -150,9 +154,9 @@
                             <template x-if="isUserManager === true">
                             <th>
                                 <div class="flex justify-center items-center">
-                                    <button  @click.prevent.self="$wire.userDetails(doc.user.id);" type="button" class="text-blue-700 whitespace-nowrap hover:text-white border border-blue-700 hover:bg-blue-800 focus:ring-4 focus:outline-none
-                focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 dark:border-blue-500 dark:text-blue-500 dark:hover:text-white
-                dark:hover:bg-blue-600 dark:focus:ring-blue-800" x-text="doc.user.name">
+                                    <button  type="button" class="text-blue-700 whitespace-nowrap border border-blue-700 focus:ring-4 focus:outline-none
+                focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 dark:border-blue-500 dark:text-blue-500
+                dark:focus:ring-blue-800" x-text="doc.user.name">
 
                                     </button>
                                 </div>
@@ -188,6 +192,10 @@
 
                                 </span>
                                 <span x-show="doc.comments.length === 0" x-text="'Not available'"></span>
+                            </td>
+
+                            <td class="py-4 px-6 text-center">
+                                <span x-text=" moment(doc.updated_at).fromNow();"></span>
                             </td>
 
                         </tr>

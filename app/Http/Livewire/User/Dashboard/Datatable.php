@@ -17,6 +17,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Redirect;
 use Livewire\Component;
 use Livewire\WithPagination;
 use Spatie\Permission\Models\Permission;
@@ -99,12 +100,7 @@ class Datatable extends Authenticate
         return ($this->isUserManager ?  redirect()->to('applications-all-documents') : redirect()->to('documents') );
     }
 
-    public function attentionDocument($docID){
-        $document=Document::with('serviceRequirement')->find($docID);
-        $document->seen=1;
-        $document->save();
-        redirect()->to('documents');
-    }
+
 
     public function render()
     {
@@ -131,7 +127,7 @@ class Datatable extends Authenticate
                 if( $applications->revisionCount === null )  $applications->revisionCount=0;
                 if($applications->rejectedCount === null )  $applications->rejectedCount=0;
 
-                $documentAction= Document::with(['user','serviceRequirement','comments'])->where('accepted',0)->where('revision',0)->where('rejected',0)->get();
+                $documentAction= Document::with(['user','serviceRequirement','comments'])->where('accepted',0)->where('revision',0)->where('rejected',0)->orderBy('updated_at','desc')->get();
 
                 $latest = Application::with(['service', 'user'])->orderBy('created_at', 'desc')->get()->take(5);
                 return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications, 'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'documentAction'=>$documentAction]);

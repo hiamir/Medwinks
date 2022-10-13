@@ -100,7 +100,15 @@ trait General
     }
 
 
-
+    public function attentionDocument($docID){
+        $document=Document::with('serviceRequirement')->find($docID);
+        session()->put('documentID', $document->serviceRequirement->id);
+        session()->put('clientTab', 'document');
+        $document->seen=1;
+        $document->save();
+        ($this->isUserManager) ? Redirect::route('user.client-details',[$document->user_id]) : Redirect::route('user.documents');
+//       return redirect()->to('documents');
+    }
 
 //    public function submit()
 //    {
