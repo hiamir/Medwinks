@@ -7,6 +7,7 @@ use App\Http\Livewire\Authenticate;
 use App\Models\Application;
 use App\Models\Country;
 use App\Models\Document;
+use App\Models\Passport;
 use App\Models\PermissionExtends;
 use App\Models\Region;
 use App\Models\User;
@@ -127,10 +128,14 @@ class Datatable extends Authenticate
                 if( $applications->revisionCount === null )  $applications->revisionCount=0;
                 if($applications->rejectedCount === null )  $applications->rejectedCount=0;
 
+                $attentionPassport=User::Wherehas('passports',function($p){
+                    $p->where('active',1)->whereDate('expiry_date', '<', now());
+                })->get();
                 $documentAction= Document::with(['user','serviceRequirement','comments'])->where('accepted',0)->where('revision',0)->where('rejected',0)->orderBy('updated_at','desc')->get();
 
                 $latest = Application::with(['service', 'user'])->orderBy('created_at', 'desc')->get()->take(5);
-                return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications, 'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'documentAction'=>$documentAction]);
+                return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications, 'latest' => $latest,
+                    'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'attentionPassport'=>$attentionPassport,'documentAction'=>$documentAction]);
             } else {
                 $documentsRevisionCount=count(Document::where('user_id',auth()->user()->id)->where('revision',1)->get());
                 $newApplicationsCount=count(Application::where('accepted',0)->where('rejected',0)->where('revision',0)->where('users_id', auth()->user()->id)->get());
@@ -147,13 +152,14 @@ class Datatable extends Authenticate
                 if( $applications->revisionCount === null )  $applications->revisionCount=0;
                 if($applications->rejectedCount === null )  $applications->rejectedCount=0;
 
+                $attentionPassport=Passport::where('user_id',auth()->user()->id)->first();
                $documentAction= Document::with(['serviceRequirement','comments'])->where('user_id',auth()->user()->id)->where('accepted',0)->where('revision',1)->where('rejected',0)->get();
 
 
                 $latest = Application::with(['service', 'user'])->orderBy('created_at', 'desc')->where('users_id', auth()->user()->id)->get()->take(5);
 
                 return view('livewire.user.dashboard.datatable', ['clients' => $clients, 'applications' => $applications,
-                    'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'documentAction'=>$documentAction]);
+                    'latest' => $latest,'newApplicationCount'=>$newApplicationsCount,'documentsRevisionCount'=>$documentsRevisionCount,'attentionPassport'=>$attentionPassport,'documentAction'=>$documentAction]);
             }
 
 

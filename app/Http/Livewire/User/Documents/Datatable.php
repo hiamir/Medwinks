@@ -31,14 +31,21 @@ public ?int $sessionDocumentID=null;
         if ($this->permission('user-document-view')) {
             $this->documentType='document';
 
-            if(Session::has('documentID')){
-                $this->documentID=Session::get('documentID');
-                Session::forget('documentID');
-            }
+
 //            $requirements=ServiceRequirement::all();
             $records = ServiceRequirement::with(['documents' => function ($q) {
                 $q->with('applications')->where('user_id', auth()->user()->id);
             }])->orderBy('created_at', 'asc')->paginate(10);
+
+            if(Session::has('documentID')){
+                $this->documentID=Session::get('documentID');
+                Session::forget('documentID');
+            }else{
+                if( $records !==null){
+                    $this->documentID=($records->first()->id);
+                }
+            }
+
             return view('livewire.user.documents.datatable', ['records' => $records]);
         } else {
             return view('livewire.errors.access-denied', ['name' => 'documents']);

@@ -4,7 +4,7 @@
             <template x-for="(document,index) in documents" :key="index">
                 <li
                     x-init="
-                    if(!activeStart){ documentID=document.id; requirementTabID = document.id; activeStart=true; }
+{{--                    if(!activeStart){ documentID=document.id; requirementTabID = document.id; activeStart=true; }--}}
 "
                     class="mr-2 mb-3" role="presentation">
                     <button @click.prevent="documentID=document.id; requirementTabID=document.id"

@@ -10,7 +10,7 @@
         'requirements': {},
         routeName:'',
         applications:[],
-        documentID:$persist(0),
+       documentID:$persist($wire.entangle('documentID')),
         selectedRequirements:$wire.entangle('selectedRequirements'),
         did : $wire.entangle('documentID')
         })

@@ -5,6 +5,7 @@ x-data="{
     chats: $wire.entangle('chats'),
     filterDocumentRecord:$wire.entangle('filterDocumentRecord'),
     sortUser:$wire.entangle('sortUser')
+    documentID:$persist($wire.entangle('documentID')),
 }"
 x-init="documents={{$documents->getCollection()}}
     documentsCount={{$documentsCount}};

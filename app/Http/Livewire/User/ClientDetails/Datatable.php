@@ -284,7 +284,6 @@ class Datatable extends Authenticate
                 $this->documentID=Session::get('documentID');
                 Session::forget('documentID');
             }
-
             if(Session::has('clientTab')){
                 $this->clientTab=Session::get('clientTab');
                 Session::forget('clientTab');
