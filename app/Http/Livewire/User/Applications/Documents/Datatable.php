@@ -26,9 +26,10 @@ use Spatie\Permission\Models\Permission;
 class Datatable extends Authenticate
 {
     use WithPagination;
+    use DocumentPassportCommon;
     use General;
     use DocumentDatable;
-    use DocumentPassportCommon;
+
     use Submit;
     use Data;
 
@@ -125,6 +126,16 @@ class Datatable extends Authenticate
                 case 'revision':
                     $documents = $data->where('accepted', 0)->where('rejected', 0)->where('revision', 1)->paginate(10);
                     break;
+            }
+
+            if(Session::has('documentID')){
+                $this->documentID=Session::get('documentID');
+                Session::forget('documentID');
+            }else{
+
+                if( $data->first() !==null){
+                    if($data->first()->serviceRequirement !== null) $this->documentID=($data->first()->serviceRequirement->id);
+                }
             }
 
 //            $allDocumentsCount = count($data->get());

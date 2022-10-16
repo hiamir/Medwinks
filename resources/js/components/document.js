@@ -20,6 +20,7 @@ document.addEventListener('alpine:init', function () {
         documentType: $wire.entangle('documentType').defer,
         documentID: data.documentID,
         did:data.did,
+        filterDocumentRecord:data.filterDocumentRecord,
 
         isRecord: false,
         recordCount: 0,

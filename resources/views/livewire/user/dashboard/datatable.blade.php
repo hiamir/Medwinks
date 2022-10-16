@@ -168,21 +168,21 @@
                                     class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-900/[0.5]">
                                     <th>
                                         <p x-show="doc.seen===0" class="flex relative top-0 left-0">
-                                <span
-                                    class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <span
-                                    class="flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 rounded-full h-3 w-3 bg-sky-500"></span>
-                                <span
-                                    class=" flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 animate-ping h-3 w-3 inline-flex rounded-full bg-sky-400 opacity-75"></span>
-                                    </span>
+                                            <span
+                                                class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                            <span
+                                                class="flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 rounded-full h-3 w-3 bg-sky-500"></span>
+                                            <span
+                                                class=" flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 animate-ping h-3 w-3 inline-flex rounded-full bg-sky-400 opacity-75"></span>
+                                           </span>
                                         </p>
                                     </th>
                                     <template x-if="isUserManager === true">
                                         <th>
                                             <div class="flex justify-center items-center">
                                                 <button type="button" class="text-blue-700 whitespace-nowrap border border-blue-700 focus:ring-4 focus:outline-none
-                focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 dark:border-blue-500 dark:text-blue-500
-                dark:focus:ring-blue-800" x-text="doc.user.name">
+                                                        focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 dark:border-blue-500 dark:text-blue-500
+                                                        dark:focus:ring-blue-800" x-text="doc.user.name">
 
                                                 </button>
                                             </div>
@@ -235,37 +235,9 @@
 
 {{--            USER  MANAGER       --}}
             @if($isUserManager === true)
-                <template x-if="isUserManager">
+{{--                <template x-if="isUserManager">--}}
 
-                    {{--        PASSPORTS CHECK                                 --}}
-                    <span class="flex flex-col">
-                        <p class="flex">
-                         <button type="button" class="cursor-default py-2.5 px-5 mr-2 mb-2 text-sm font-medium
-                    text-blue-900 focus:outline-none bg-white rounded-lg border border-blue-200
-                     focus:z-10 focus:ring-4 focus:ring-blue-200
-                    dark:focus:ring-blue-700 dark:bg-blue-800 dark:text-blue-400 dark:border-blue-600">
-                             <span class="uppercase" x-text="'passport'"></span>
-                         </button>
-                        </p>
-
-                        </div>
-
-                         <div x-show="attentionPassport.length > 0" class="flex flex-col border border-gray-700 rounded-md p-3">
-                               <p class="flex flex-col">
-                                   <span class="flex font-semibold text-gray-300 mb-3" x-text="'Active passport Expired'"></span>
-                                   <p class="flex">
-                                   <template x-for="(user, index) in attentionPassport" :key="index">
-
-                           <button type="button" class="py-2.5 px-5 mr-2 mb-2 text-sm font-medium text-gray-900 focus:outline-none bg-white rounded-full border
-                           border-red-200 hover:bg-gray-100 hover:text-red-700 focus:z-10 focus:ring-4 focus:ring-red-200 dark:focus:ring-red-700
-                           dark:bg-red-800 dark:text-red-200 dark:border-red-600 dark:hover:text-white dark:hover:bg-red-700"><span class="capitalize" x-text="user.name"></span></button>
-                                   </template>
-                                 </p>
-                        </p>
-                        </div>
-
-                    </span>
-
+                {{--        DOCUMENT CHECK                                 --}}
                     <div class="overflow-x-auto relative">
 
                         <table class="w-full text-sm text-left text-gray-500 dark:text-gray-400">
@@ -276,21 +248,21 @@
                                     #
                                 </th>
                                 <template x-if="isUserManager === true">
-                                    <th scope="col" class="py-3 px-6 text-center" style="width:10%">
+                                    <th scope="col" class="xs:hidden md:table-cell py-3 px-6 text-center" style="width:10%">
                                         User
                                     </th>
                                 </template>
-                                <th scope="col" class="py-3 px-6" style="width:15%">
+                                <th scope="col" class="py-3 px-6 xs:!w-[80%] md:!w-[15%]" style="width:15%">
                                     Document Type
                                 </th>
-                                <th scope="col" class="py-3 px-6" style="width:20%">
+                                <th scope="col" class="xs:hidden md:table-cell py-3 px-6" style="width:20%">
                                     Document
                                 </th>
-                                <th scope="col" class="py-3 px-6 text-center" style="width:10%">
+                                <th scope="col" class="xs:hidden md:table-cell py-3 px-6 text-center" style="width:10%">
                                     Decision
                                 </th>
 
-                                <th scope="col" class="py-3 px-6 text-center" style="width:20%">
+                                <th scope="col" class="xs:hidden md:table-cell py-3 px-6 text-center" style="width:20%">
                                     Last updated
                                 </th>
                             </tr>
@@ -301,16 +273,33 @@
                                     class="cursor-pointer bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:dark:bg-gray-900/[0.5]">
                                     <th>
                                         <p x-show="doc.seen===0" class="flex relative top-0 left-0">
-                                <span
-                                    class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                                <span
-                                    class="flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 rounded-full h-3 w-3 bg-sky-500"></span>
-                                <span
-                                    class=" flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 animate-ping h-3 w-3 inline-flex rounded-full bg-sky-400 opacity-75"></span>
-                                    </span>
+                                            <span
+                                                class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                            <span
+                                                class="flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 rounded-full h-3 w-3 bg-sky-500"></span>
+                                            <span
+                                                class=" flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 animate-ping h-3 w-3 inline-flex rounded-full bg-sky-400 opacity-75"></span>
+                                            </span>
+                                        </p>
+                                        <p x-show="doc.seen===1" class="flex relative top-0 left-0">
+                                            <span
+                                                class="flex absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
+                                            <span
+                                                class="flex absolute  top-[-5px] bottom-0 left-[-5px] right-0 rounded-full h-3 w-3 bg-gray-500"></span>
+
+                                            </span>
                                         </p>
                                     </th>
-                                    <th>
+
+                                    <th class="xs:table-cell md:hidden">
+                                        <p class="flex flex-col  p-5">
+                                            <span class="flex text-gray-200" x-text="doc.service_requirement.name"></span>
+                                            <span class="flex font-normal " x-text="doc.user.name"></span>
+                                        </p>
+                                    </th>
+
+
+                                    <th class="xs:hidden md:table-cell">
                                         <div class="flex justify-center items-center">
                                             <button type="button" class="text-blue-700 whitespace-nowrap border border-blue-700 focus:ring-4 focus:outline-none
                                                 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 text-center m-2 dark:border-blue-500 dark:text-blue-500
@@ -320,14 +309,14 @@
 
                                     </th>
 
-                                    <th scope="row"
+                                    <th class="xs:hidden md:table-cell" scope="row"
                                         class="py-4 px-6 font-medium text-gray-900 whitespace-nowrap dark:text-white">
                                         <span x-text="doc.service_requirement.name"></span>
                                     </th>
-                                    <td class="py-4 px-6">
+                                    <td class="xs:hidden md:table-cell py-4 px-6">
                                         <span x-text="doc.name"></span>
                                     </td>
-                                    <td class="py-4 px-6 text-center">
+                                    <td class="xs:hidden md:table-cell py-4 px-6 text-center">
                                         <div class="inline-flex justify-center items-center">
                                             <x-svg.main
                                                 x-show="doc.rejected===0 && doc.accepted===1 && doc.revision===0"
@@ -354,7 +343,7 @@
                                     </td>
 
 
-                                    <td class="py-4 px-6 text-center">
+                                    <td class="xs:hidden md:table-cell py-4 px-6 text-center">
                                         <span x-text=" moment(doc.updated_at).fromNow();"></span>
                                     </td>
 
@@ -364,7 +353,30 @@
                             </tbody>
                         </table>
                     </div>
-                </template>
+
+                {{--        PASSPORTS CHECK                                 --}}
+                <span class="flex flex-col mt-10">
+                         <div x-show="attentionPassport.length > 0" class="flex flex-col border border-gray-700 rounded-md p-3">
+{{--                             <p class="flex">--}}
+{{--                         <button type="button" class="cursor-default py-2 px-3 text-xs font-medium text-center text-white bg-blue-700 rounded-lg hover:bg-blue-800 focus:ring-4 focus:outline-none focus:ring-blue-300 dark:bg-blue-600 dark:hover:bg-blue-700 dark:focus:ring-blue-800"">--}}
+{{--                             <span class="uppercase" x-text="'passport'"></span>--}}
+{{--                         </button>--}}
+{{--                        </p>--}}
+                               <p class="flex flex-col">
+                                   <span class="flex font-semibold text-gray-300 mb-3" x-text="'Active passport Expired'"></span>
+                                   <p class="flex">
+                                   <template x-for="(user, index) in attentionPassport" :key="index">
+
+                           <button type="button" class="py-2 px-3 text-xs font-medium text-center text-white bg-red-700
+                            rounded-lg hover:bg-red-800 focus:ring-4 focus:outline-none focus:ring-red-300 dark:bg-red-600
+                            dark:hover:bg-red-700 dark:focus:ring-red-800"><span class="capitalize" x-text="user.name"></span></button>
+                                   </template>
+                                 </p>
+                             </p>
+                        </div>
+
+                    </span>
+{{--                </template>--}}
             @endif
         </div>
 

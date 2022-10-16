@@ -1,14 +1,17 @@
 <x-datatable.main
-x-data="{
+    x-data=" Document($wire,{
     documents:{},
     routeName:$wire.entangle('routeName'),
     chats: $wire.entangle('chats'),
     filterDocumentRecord:$wire.entangle('filterDocumentRecord'),
-    sortUser:$wire.entangle('sortUser')
-    documentID:$persist($wire.entangle('documentID')),
-}"
-x-init="documents={{$documents->getCollection()}}
-    documentsCount={{$documentsCount}};
+    sortUser:$wire.entangle('sortUser'),
+     documentID : $persist($wire.entangle('documentID')),
+        did : $wire.entangle('documentID')
+})"
+x-init="
+documents={{$documents->getCollection()}}
+    if(did !== null ) documentID = did;
+   documentsCount={{$documentsCount}};
 
     console.log(documents);
     "

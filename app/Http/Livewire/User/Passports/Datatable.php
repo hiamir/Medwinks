@@ -4,7 +4,7 @@ namespace App\Http\Livewire\User\Passports;
 
 use App\Http\Livewire\Authenticate;
 use App\Models\Country;
-use App\Models\passport;
+use App\Models\Passport;
 use App\Traits\Data;
 use App\Traits\Datatable\DocumentPassportCommon;
 use App\Traits\Datatable\PassportDatable;
@@ -31,10 +31,10 @@ class Datatable extends Authenticate
             switch ($this->userRoles()['active']) {
                 case 'userRoleActive':
                     if (in_array('manager', $this->userRoles()['roles'])) {
-                        $records = passport::with('applications')->where('user_id', auth()->user()->id)->orderBy('active', 'DESC')
+                        $records = Passport::with('applications')->where('user_id', auth()->user()->id)->orderBy('active', 'DESC')
                             ->orderBy('accepted', 'DESC')->orderBy('revision', 'DESC')->orderBy('rejected', 'DESC')->paginate(20);
                     } else {
-                        $records = passport::with('applications')->where('user_id', auth()->user()->id)->orderBy('active', 'DESC')->paginate(20);
+                        $records = Passport::with('applications')->where('user_id', auth()->user()->id)->orderBy('active', 'DESC')->paginate(20);
                     }
                     return view('livewire.user.passports.datatable', ['records' => $records, 'countries' => $countries]);
 

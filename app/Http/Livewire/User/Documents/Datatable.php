@@ -45,7 +45,6 @@ public ?int $sessionDocumentID=null;
                     $this->documentID=($records->first()->id);
                 }
             }
-
             return view('livewire.user.documents.datatable', ['records' => $records]);
         } else {
             return view('livewire.errors.access-denied', ['name' => 'documents']);
