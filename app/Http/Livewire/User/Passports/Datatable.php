@@ -37,7 +37,6 @@ class Datatable extends Authenticate
                         $records = Passport::with('applications')->where('user_id', auth()->user()->id)->orderBy('active', 'DESC')->paginate(20);
                     }
                     return view('livewire.user.passports.datatable', ['records' => $records, 'countries' => $countries]);
-
                 default:
                     return view('livewire.errors.access-denied', ['name' => 'passports']);
             }
