@@ -32,6 +32,6 @@ class DocumentUpdateManager extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.document_update_manager', ['name' => $this->name, 'clientName'=>$this->clientName,'documentName' => $this->documentName]);
+        return $this->markdown('mail.document_update_manager', ['name' => $this->name, 'clientName'=>$this->clientName,'documentName' => $this->documentName])->subject($this->clientName. ' updated document');
     }
 }

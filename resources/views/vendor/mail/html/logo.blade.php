@@ -12,8 +12,8 @@
            href="{{ $href ?? '' }}">
             <img border="0" vspace="0" hspace="0"
                  src="{{ $url }}"
-                 width="100" height="80"
-                 alt="Logo" title="Logo"/>
+                 width="200" height="160"
+                 alt="Logo" title="Medwinks"/>
         </a>
     </td>
 </tr>

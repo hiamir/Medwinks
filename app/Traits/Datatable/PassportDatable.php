@@ -174,7 +174,42 @@ trait PassportDatable
         return count($application) === 0;
 
     }
+    public function submit()
+    {
 
+        switch ($this->myModal['model']) {
+
+            case 'client-details':
+            case 'passport':
+                $this->documentType = 'passport';
+                if(is_object($this->file)) $this->passport['file']=$this->file;
+                switch ($this->myModal['formType']) {
+                    case 'passport':
+                        if ($this->myModal['modalType'] === 'update' || $this->myModal['modalType'] === 'delete') {
+
+                            $this->record = passport::with('applications')->where('id', $this->myModal['record']['formData']['id'])->first();
+                            $this->passportID = $this->record->id;
+                        }
+                        switch ($this->myModal['modalType']) {
+
+                                case 'delete':
+                                if (count($this->record->applications) === 0) {
+                                    if (($this->record->accepted === 1 && $this->record->rejected === 0 && $this->record->revision === 0) || ($this->record->accepted === 0 && $this->record->rejected === 1 && $this->record->revision === 0)) {
+                                        $this->dispatchBrowserEvent('error-modal', ['show' => true, 'type' => 'error', 'title' => 'Passport Decision!', 'message' => 'Cannot delete as passport decision was finalized']);
+                                    } else {
+                                        $this->submitForm($this, $this->myModal['model'], $this->myModal['modalType'], $this->myModal['formType'], $this->record, $this->passport, $this->passportRules());
+                                    }
+                                } else {
+                                    $this->dispatchBrowserEvent('error-modal', ['show' => true, 'type' => 'error', 'title' => 'Passport Link!', 'message' => 'Cannot delete as one or more of the applications are using this passport']);
+                                }
+
+                                break;
+                        }
+                        break;
+                }
+                break;
+        }
+    }
 
     public function submitPassport()
     {

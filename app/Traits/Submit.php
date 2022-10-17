@@ -347,16 +347,8 @@ trait Submit
                                     $record['revision'] = $field['revision'];;
 
                                     $t->gate($t, $modal, $type, $formType, $record);
-                                    if ($this->success && $type === 'update') {
-                                        $user = User::find($this->record['user_id']);
-                                        Mail::to($user->email)->send(new PassportUpdate($user->name, $this->record['passport_number']));
-                                        $managers = User::role('manager')->get();
-                                        if (count($managers) > 0) {
-                                            foreach ($managers as $manager) {
-                                                Mail::to($manager->email)->send(new PassportUpdateManager($user->name, $manager->name, $this->record['passport_number']));
-                                            }
-                                        }
-                                    }
+
+
                                 }
 
                                 break;
@@ -438,14 +430,9 @@ trait Submit
                                     if ($type === 'update') {
                                         $user = User::find($record['user_id']);
                                         Mail::to($user->email)->send(new DocumentUpdate($user->name, $record['name']));
-                                        $managers = User::role('manager')->get();
-                                        if (count($managers) > 0) {
-                                            foreach ($managers as $manager) {
-                                                Mail::to($manager->email)->send(new DocumentUpdateManager($user->name, $manager->name, $record['name']));
-                                            }
-                                        }
-                                    }
+                                        Mail::to(config('app.admin_email'))->send(new DocumentUpdateManager($user->name, 'Manager', $record['name']));
 
+                                    }
 
                                     if (is_object($field['file'])) $record['file'] = $field['file'];
 
@@ -887,15 +874,28 @@ trait Submit
                         case 'passport':
                             if (is_object($this->record['file'])) {
                                 $file = $this->record['file'];
+
+
                                 $this->record['file'] = ($this->fileRename($this->record['file'], 'passport', $this->record['passport_number']));
-                                $this->success = $record->save();
                                 $this->uploadFile($file, 'passports', $this->record['file']);
+                                $this->record['seen'] = 0;
+                                $this->success = $this->record->save();
+
+
                             } else {
-                                $this->success = $record->save();
+                                $this->record['seen'] = 0;
+                                $this->success = $this->record->save();
                             }
+
                             if ($this->success) {
                                 $userEmail = User::find($record->user_id);
-                                Mail::to(config('app.admin_email'))->send(new NewPassportManager($userEmail->name));
+                               if($type === 'add') {
+                                   Mail::to(config('app.admin_email'))->send(new NewPassportManager($userEmail->name));
+                               }else{
+                                       $user = User::find($this->record['user_id']);
+                                       Mail::to($user->email)->send(new PassportUpdate($user->name, $this->record['passport_number']));
+                                       Mail::to(config('app.admin_email'))->send(new PassportUpdateManager('Manager',$user->name, $this->record['passport_number']));
+                               }
                             }
 
                             $this->dispatchBrowserEvent('toast', ['alert' => 'success', 'message' => 'Passport added successfully!']);
@@ -909,7 +909,6 @@ trait Submit
                                         $this->success = $record->save();
                                         $file = $this->record['file'];
                                         $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
-
                                         $this->uploadFile($file, 'documents', $this->record['file']);
                                         $this->record['seen'] = 0;
                                         $this->record->save();
@@ -955,7 +954,6 @@ trait Submit
                                                 $this->success = $record->save();
                                                 $file = $this->record['file'];
                                                 $this->record['file'] = ($this->fileRename($this->record['file'], 'document', $this->record->id . '-' . $this->record['service_requirement_id']));
-
                                                 $this->uploadFile($file, 'documents', $this->record['file']);
                                                 $record->save();
                                             } else {

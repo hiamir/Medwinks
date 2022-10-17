@@ -34,6 +34,6 @@ class PassportUpdateManager extends Mailable
      */
     public function build()
     {
-        return $this->markdown('mail.passport_update_manager', ['name' => $this->name, 'clientName'=>$this->clientName,'passportName' => $this->passportName]);
+        return $this->markdown('mail.passport_update_manager', ['name' => $this->name, 'clientName'=>$this->clientName,'passportName' => $this->passportName])->subject($this->clientName. ' updated passport');
     }
 }

@@ -56,8 +56,10 @@ trait General
 
     public function photoView($file, $type = null)
     {
+
         switch ($type) {
             case 'passport':
+                dd($file);
                 $this->photoType = 'passport';
                 if ($this->permission('user-passport-view')) {
                     if (Storage::exists('public/images/passports/' . $file)) {
@@ -67,7 +69,7 @@ trait General
                         $this->dispatchBrowserEvent('error-modal', ['show' => true, 'type' => 'error', 'title' => 'Image not found!', 'message' => 'The image you are looking for doesnt exists!.']);
                     }
                 } else {
-                    $this->AccessDeniedModal('view', 'view document');
+                    $this->AccessDeniedModal('view', 'view passport');
                 }
                 break;
 

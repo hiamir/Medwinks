@@ -165,6 +165,7 @@ document.addEventListener('alpine:init', function () {
             let fileLink;
             if (filename !== undefined && filename.length > 0) {
                 fileLink = path + filename;
+                console.log(fileLink);
                 var xhr = new XMLHttpRequest();
                 xhr.ontimeout = () => {
                     console.error(`The request for ${url} timed out.`);
