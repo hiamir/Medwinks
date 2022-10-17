@@ -3,7 +3,7 @@
     @slot('header')
 
         {{-- logo --}}
-        @component('mail::logo', ['url' => asset('storage/images/logo-circle.svg'),'href'=>'www.edmanager.com','preheader'=>'Reset Password']) @endcomponent
+        @component('mail::logo', ['url' => asset('storage/images/logo.svg'),'href'=>'www.medwinks.com','preheader'=>'Medwinks']) @endcomponent
 
         {{-- Image --}}
         @component('mail::image', ['url' => $imageUrl,'href'=>'http://127.0.0.1:8000/login'])  @endcomponent
